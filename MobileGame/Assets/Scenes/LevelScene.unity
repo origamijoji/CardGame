@@ -504,6 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6913ce1adf8a0744fa3c3c3f99dea084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelGenerator: {fileID: 682550813}
+  _speed: 0
+  _levelLength: 50
+  _obstacleWeight: 0
 --- !u!4 &1401606939
 Transform:
   m_ObjectHideFlags: 0
