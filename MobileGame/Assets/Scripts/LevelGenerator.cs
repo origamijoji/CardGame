@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGenerator : MonoBehaviour
-{
+public class LevelGenerator : MonoBehaviour {
     [SerializeField] private GameObject _startPlatform;
     [SerializeField] private GameObject _endPlatform;
     [SerializeField] List<GameObject> _platformList = new List<GameObject>();
@@ -12,27 +11,29 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateLevel(int levelLength) {
         _numberOfPlatforms = _platformList.Count;
-        Debug.Log(_numberOfPlatforms);
+        var startPlatform = Instantiate(_startPlatform);
+        startPlatform.transform.position = Vector3.zero;
+        startPlatform.transform.rotation = Quaternion.identity;
 
-        currentLevel.Push(_startPlatform);
+        currentLevel.Push(startPlatform);
 
         Debug.Log("Generating Platforms");
         for (int platformsRemaining = levelLength; platformsRemaining > 0; platformsRemaining--) {
             var newPlatform = Instantiate(_platformList[GetPlatform()]);
-            newPlatform.transform.position = currentLevel.Peek().transform.GetChild(0).transform.position;
+            newPlatform.transform.position = currentLevel.Peek().transform.GetChild(0).GetChild(0).position;
             currentLevel.Push(newPlatform);
         }
         Debug.Log("Adding Final Platform");
         var endPlatform = Instantiate(_endPlatform);
-        endPlatform.transform.position = currentLevel.Peek().transform.GetChild(0).transform.position;
+        endPlatform.transform.position = currentLevel.Peek().transform.GetChild(0).GetChild(0).position;
         currentLevel.Push(endPlatform);
     }
 
     public void DegenerateLevel() {
-        for(int stackCount = currentLevel.Count; stackCount > 1; stackCount--) {
-            Destroy(currentLevel.Peek());
-            currentLevel.Pop();
+        foreach (GameObject platform in currentLevel) {
+            Destroy(platform);
         }
+        currentLevel.Clear();
     }
 
     private int GetPlatform() {
@@ -41,7 +42,6 @@ public class LevelGenerator : MonoBehaviour
             _previousPlatform = randomNumber;
             return randomNumber;
         }
-        GetPlatform();
-        return 0;
+        return GetPlatform();
     }
 }
