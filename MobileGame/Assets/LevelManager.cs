@@ -20,12 +20,16 @@ public sealed class LevelManager : MonoBehaviour {
     [SerializeField] private float _obstacleWeight;
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.F1)) {
+        if (Input.GetKeyDown(KeyCode.F1)) {
             _levelGenerator.DegenerateLevel();
         }
         if (Input.GetKeyDown(KeyCode.F2)) {
+            _levelGenerator.GenerateLevel(_levelLength);
         }
-
+        if (Input.GetKeyDown(KeyCode.F3)) {
+            _levelGenerator.DegenerateLevel();
+            _levelGenerator.GenerateLevel(_levelLength);
+        }
     }
 
     private void Awake() {
