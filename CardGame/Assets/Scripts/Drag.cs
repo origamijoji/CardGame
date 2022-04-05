@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Mirror;
 
-public class Drag : MonoBehaviour
+public class Drag : NetworkBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private float speed;
-    
+
     public void DragHandler(BaseEventData data) {
+        if(!isLocalPlayer) { return; }
         PointerEventData pointerData = (PointerEventData) data;
 
         Vector2 position;
