@@ -10,7 +10,7 @@ public class Player : NetworkBehaviour {
     public void DrawCard(CardInfo cardInfo) {
         var newCard = Instantiate(_blankCard);
         newCard.transform.parent = playerField;
-        newCard.GetComponent<HeldCard>().ChangeCard(cardInfo);
+       // newCard.GetComponent<HeldCard>().ChangeCard(cardInfo);
     }
 
 

@@ -8,6 +8,7 @@ public class TestServer : NetworkBehaviour
     public override void OnStartServer() {
         base.OnStartServer();
         Debug.Log("Server has started");
+       // NetworkServer.Spawn();
     }
 
     public override void OnStopServer() {

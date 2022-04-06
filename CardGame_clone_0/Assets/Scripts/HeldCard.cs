@@ -5,7 +5,8 @@ using TMPro;
 public class HeldCard : MonoBehaviour
 {
     // Composition
-    [SerializeField] private CardInfo _cardInfo;
+    public ScriptableCard _cardInfo;
+
 
     // Components
     [SerializeField] private Image _art;
@@ -15,23 +16,21 @@ public class HeldCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _cost;
 
+    // public void ChangeCard(CardInfo cardInfo) {
+    //      _cardInfo = cardInfo;
+    //     DisplayInfo();
+    // }
     private void Update() {
         DisplayInfo();
     }
 
-    public void ChangeCard(CardInfo cardInfo) {
-        _cardInfo = cardInfo;
-        DisplayInfo();
-    }
-
-
     private void DisplayInfo() {
-        _art.sprite = _cardInfo.Art;
-        _health.text = _cardInfo.Health.ToString();
-        _attack.text = _cardInfo.Attack.ToString();
-        _name.text = _cardInfo.Name.ToString();
-        _description.text = _cardInfo.Description.ToString();
-        _cost.text = _cardInfo.ManaCost.ToString();
+        _art.sprite = _cardInfo.art;
+        _health.text = _cardInfo.health.ToString();
+        _attack.text = _cardInfo.attack.ToString();
+        _name.text = _cardInfo.name.ToString();
+        _description.text = _cardInfo.description.ToString();
+        _cost.text = _cardInfo.manaCost.ToString();
     }
 
 }

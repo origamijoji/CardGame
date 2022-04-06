@@ -5,7 +5,7 @@ using Mirror;
 
 public class TestPlayer : NetworkBehaviour
 {
-    [SyncVar] bool syncTest;
+    [SyncVar] public bool syncTest;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -21,16 +21,42 @@ public class TestPlayer : NetworkBehaviour
         if(!isLocalPlayer) { return; }
 
         if(Input.GetKey(KeyCode.W)) {
-            transform.Translate(Vector3.forward * 5);
+            MoveForward();
         }
         if (Input.GetKey(KeyCode.A)) {
-            transform.Translate(Vector3.left * 5); 
+            MoveLeft();
         }
         if (Input.GetKey(KeyCode.S)) {
-            transform.Translate(Vector3.back * 5);
+            MoveBack();
         }
         if (Input.GetKey(KeyCode.D)) {
-            transform.Translate(Vector3.right * 5);
+            MoveRight();
         }
+
+        if(Input.GetKeyDown(KeyCode.X)) {
+            CmdChangeSyncTest();
+        }
+    }
+    [Command]
+    private void MoveLeft() {
+        transform.Translate(Vector3.left * 2);
+    }
+    [Command]
+    private void MoveRight() {
+        transform.Translate(Vector3.right * 2);
+    }
+    [Command]
+    private void MoveForward() {
+        transform.Translate(Vector3.forward * 2);
+    }
+    [Command]
+    private void MoveBack() {
+        transform.Translate(Vector3.back * 2);
+    }
+
+    [Command]
+    private void CmdChangeSyncTest() {
+        syncTest = !syncTest;
+        Debug.Log("SyncTest set to " + syncTest);
     }
 }
