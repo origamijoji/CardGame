@@ -7,6 +7,7 @@ public class HeldCard : MonoBehaviour
     // Composition
     public ScriptableCard _cardInfo;
 
+    //reference to OnHoverEnlarge component on same prefab
 
     // Components
     [SerializeField] private Image _art;

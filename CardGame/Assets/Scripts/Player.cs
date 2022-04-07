@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class Player : NetworkBehaviour {
+public class Player : Entity {
     [SerializeField] private GameObject _blankCard;
     [SerializeField] private Transform playerField;
     [SerializeField] private PlayerDeck _deck;
@@ -16,13 +16,15 @@ public class Player : NetworkBehaviour {
     [SyncVar] private int _currentMaxMana;
     [SyncVar] private int _totalMaxMana = 10;
 
-    [SyncVar] private int _health = 30;
-
 
     public override void OnStartClient() {
         if (!isLocalPlayer) { return; }
         base.OnStartClient();
         playerField = GameObject.Find("Player Field").transform;
+        if(s_gameManager = null) {
+        s_gameManager = Instantiate();
+        NetworkServer.Spawn(s_gameManager);
+        }
     }
 
     public void DrawCard(CardInfo cardInfo) {

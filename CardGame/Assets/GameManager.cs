@@ -13,17 +13,19 @@ public class GameManager : NetworkBehaviour {
         }
     }
 
+    private readonly SyncableCardList player1Deck = new SyncableCardList();
+    private readonly SyncableCardList player2Deck = new SyncableCardList();
 
-
-    private readonly SyncList<CardInfo> player1Deck = new SyncList<CardInfo>();
-    private readonly SyncList<CardInfo> player2Deck = new SyncList<CardInfo>();
-
-    [ClientRpc]
-    public void RpcDrawCards(int amount) {
+    public void DrawCards(int amount) {
+        for(int cardsDrawn = 0; cardsDrawn < amount; cardsDrawn++) {
+            // draw a card
+        }
     }
 
-    public void PlayCard(int player, CardInfo cardInfo) {
 
+    public void PlayCard(CardInfo cardInfo) {
+        var newFieldCard = Instantiate(cardInfo.fieldCard);
+        NetworkServer.Spawn(newFieldCard);
     }
 
 
