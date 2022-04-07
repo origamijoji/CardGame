@@ -26,15 +26,17 @@ public class HeldCard : MonoBehaviour
     }
 
     private void DisplayInfo() {
-        /*
-        if(_cardInfo)
+        if(_cardInfo is Minion _minionInfo) {
+            _health.text = _minionInfo.health.ToString();
+            _attack.text = _minionInfo.attack.ToString();
+        }
+        if(_cardInfo is Spell _spellInfo) {
+
+        }
         _art.sprite = _cardInfo.art;
-        _health.text = _cardInfo.health.ToString();
-        _attack.text = _cardInfo.attack.ToString();
         _name.text = _cardInfo.name.ToString();
         _description.text = _cardInfo.description.ToString();
         _cost.text = _cardInfo.manaCost.ToString();
-        */
     }
 
 }

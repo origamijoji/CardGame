@@ -4,43 +4,46 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
-    Coroutine ReturnCard;
-    int siblingIndex;
-    GameObject cardShadow;
+    private Coroutine ReturnCard;
+    private int _siblingIndex;
+    private GameObject _cardShadow;
 
     public void OnBeginDrag(PointerEventData _EventData) {
         // Get Values.
-        if (cardShadow != null) { Destroy(cardShadow); }
+        if (_cardShadow != null) { Destroy(_cardShadow); }
         if (ReturnCard != null) { StopCoroutine(ReturnCard); }
-        siblingIndex = transform.GetSiblingIndex();
+        _siblingIndex = transform.GetSiblingIndex();
         // Remove card from parent.
         transform.SetParent(ReferenceManager.Instance.Table.transform);
         // Create dummy shadow.
-        cardShadow = Instantiate(ReferenceManager.Instance.CardShadow);
-        cardShadow.transform.SetParent(ReferenceManager.Instance.PlayerHand.transform);
-        cardShadow.transform.SetSiblingIndex(siblingIndex);
+        _cardShadow = Instantiate(ReferenceManager.Instance.CardShadow);
+        _cardShadow.transform.SetParent(ReferenceManager.Instance.PlayerHand.transform);
+        _cardShadow.transform.SetSiblingIndex(_siblingIndex);
+        _cardShadow.transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
     }
 
     public void OnDrag(PointerEventData _EventData) {
         gameObject.transform.position = Input.mousePosition;
+        transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
     }
 
     public void OnEndDrag(PointerEventData _EventData) {
         ReturnCard = StartCoroutine(ReturnToHand());
+        //if(Physics2D.Raycast(Input.mousePosition, Vector2.))
     }
 
     IEnumerator ReturnToHand() {
         // Lerp card back to shadow.
-        while (Vector2.Distance(transform.position, cardShadow.transform.position) > 1) {
-            transform.position = Vector2.Lerp(transform.position, cardShadow.transform.position, Time.deltaTime * 14);
+        while (Vector2.Distance(transform.position, _cardShadow.transform.position) > 1) {
+            transform.position = Vector2.Lerp(transform.position, _cardShadow.transform.position, Time.deltaTime * 14);
             yield return null;
         }
         // Delete shadow.
-        Destroy(cardShadow);
-        cardShadow = null;
+        Destroy(_cardShadow);
+        _cardShadow = null;
         // Set card as child.
         transform.SetParent(ReferenceManager.Instance.PlayerHand.transform);
-        transform.SetSiblingIndex(siblingIndex);
+        transform.SetSiblingIndex(_siblingIndex);
         yield break;
     }
 }

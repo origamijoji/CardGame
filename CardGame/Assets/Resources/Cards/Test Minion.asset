@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 185a376931b7148468c767e272fba94e
   name: Noah
-  description: 
+  description: Kingpin. Monarch. Lethal. (He did it. He won the major.)
   art: {fileID: 21300000, guid: a328daa462aef0a4695b76bdc58c23d9, type: 3}
-  fieldCard: {fileID: 2201854635621711395, guid: 0b47f3fd6e624ed49a5d0922a884ed94, type: 3}
-  manaCost: 0
+  manaCost: 3
   hasOnPlaceAbility: 1
   OnPlaceAbility: []
-  health: 3
-  attack: 5
+  health: 8
+  attack: 3
   acceptableTargets: 0100000003000000
   race: 00000000
   onDeathAbility: []

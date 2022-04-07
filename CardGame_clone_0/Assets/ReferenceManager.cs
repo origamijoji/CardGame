@@ -17,6 +17,7 @@ public class ReferenceManager : MonoBehaviour {
     [field: SerializeField] public GameObject Card { get; private set; }
     //[field: SerializeField] public GameObject EnemyCard { get; private set; }
     [field: SerializeField] public GameObject CardShadow { get; private set; }
+    [field: SerializeField] public BoxCollider2D PlayZone { get; private set; }
     private void Awake() {
         PlayerHand = GameObject.Find("Player Hand");
         Table = GameObject.Find("Table");
