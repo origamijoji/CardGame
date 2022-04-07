@@ -1,35 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using Mirror;
+using System.Collections.Generic;
 
-public class CardInfo
-{
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    public Sprite Art { get; private set; }
-    public int ManaCost { get; private set; }
-    public int Health { get; set; }
-    public int Attack { get; private set; }
-    public bool IsKingpin { get; set; }
-    public bool IsFeint { get; set; }
-    public bool IsQuick { get; set; }
-    public bool IsLethal { get; set; }
-    public bool IsDualWield { get; set; }
+[Serializable]
+public struct CardInfo {
+    public string cardID;
+    public int amount;
 
-    public CardInfo() { }
-
-    public CardInfo(ScriptableCard scriptableCard) {
-        Name = scriptableCard.name;
-        Description = scriptableCard.description;
-        Art = scriptableCard.art;
-        ManaCost = scriptableCard.manaCost;
-        Health = scriptableCard.health;
-        Attack = scriptableCard.attack;
-
-        IsKingpin = scriptableCard.isKingpin;
-        IsFeint = scriptableCard.isFeint;
-        IsQuick = scriptableCard.isQuick;
-        IsLethal = scriptableCard.isLethal;
-        IsDualWield = scriptableCard.isDualWield;
+    public CardInfo(ScriptableCard data, int amount = 1) {
+        cardID = data.CardID;
+        this.amount = amount;
     }
+
+    public ScriptableCard data {
+        get { return ScriptableCard.Cache[cardID]; }
+    }
+
+    public Sprite image => data.art;
+    public string name => data.name;
+    public string cost => data.manaCost.ToString();
+    public string description => data.description;
+
+    public List<Targets> acceptableTargets => ((Minion)data).acceptableTargets;
 }
+
+// Card List
+public class SyncListCard : SyncList<CardInfo> { }
