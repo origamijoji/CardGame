@@ -11,11 +11,11 @@ public class FieldCard : Entity
 
     public void Attack(Entity target) {
         var targetEntity = target.GetComponent<Entity>();
-        targetEntity.TakeDamage(_attack);
+        targetEntity.TakeDamage(GetDamage());
         TakeDamage(target.GetDamage());
     }
 
-    public override OnDeath() {
+    public override void OnDeath() {
         // if card has death ability, do it
         // otherwise, return
     }

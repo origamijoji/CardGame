@@ -3,40 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
-{
+public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+    Coroutine ReturnCard;
+    int siblingIndex;
+    GameObject cardShadow;
 
-    public void OnBeginDrag(PointerEventData _EventData)
-    {
-        Debug.Log("OnBeginDrag");
-        
+    public void OnBeginDrag(PointerEventData _EventData) {
+        // Get Values.
+        if (cardShadow != null) { Destroy(cardShadow); }
+        if (ReturnCard != null) { StopCoroutine(ReturnCard); }
+        siblingIndex = transform.GetSiblingIndex();
+        // Remove card from parent.
+        transform.SetParent(ReferenceManager.Instance.Table.transform);
+        // Create dummy shadow.
+        cardShadow = Instantiate(ReferenceManager.Instance.CardShadow);
+        cardShadow.transform.SetParent(ReferenceManager.Instance.PlayerHand.transform);
+        cardShadow.transform.SetSiblingIndex(siblingIndex);
     }
- 
-    public void OnDrag(PointerEventData _EventData)
-    {
-        Debug.Log("OnDrag");
-        // set position to mouse center
-    
+
+    public void OnDrag(PointerEventData _EventData) {
+        gameObject.transform.position = Input.mousePosition;
     }
- 
-    public void OnEndDrag(PointerEventData _EventData)
-    {
-        Debug.Log("OnEndDrag");
-        // if in field zone => call play card
-        // else, return back to original zone
+
+    public void OnEndDrag(PointerEventData _EventData) {
+        ReturnCard = StartCoroutine(ReturnToHand());
     }
-    /*
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private float speed;
 
-    public void DragHandler(BaseEventData data) {
-
-        PointerEventData pointerData = (PointerEventData) data;
-        Vector2 position;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)canvas.transform, pointerData.position, canvas.worldCamera, out position);
-        transform.position = Vector2.Lerp(transform.position, canvas.transform.TransformPoint(position), Time.deltaTime * speed);
+    IEnumerator ReturnToHand() {
+        // Lerp card back to shadow.
+        while (Vector2.Distance(transform.position, cardShadow.transform.position) > 1) {
+            transform.position = Vector2.Lerp(transform.position, cardShadow.transform.position, Time.deltaTime * 14);
+            yield return null;
+        }
+        // Delete shadow.
+        Destroy(cardShadow);
+        cardShadow = null;
+        // Set card as child.
+        transform.SetParent(ReferenceManager.Instance.PlayerHand.transform);
+        transform.SetSiblingIndex(siblingIndex);
+        yield break;
     }
-    */
-
-
 }

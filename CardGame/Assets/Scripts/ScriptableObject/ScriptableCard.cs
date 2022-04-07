@@ -12,6 +12,7 @@ public class ScriptableCard : ScriptableObject {
     public new string name;
     public string description;
     public Sprite art;
+    //public GameObject fieldCard;
 
     [Header("Stats")]
     public int manaCost;

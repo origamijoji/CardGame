@@ -24,8 +24,8 @@ public class GameManager : NetworkBehaviour {
 
 
     public void PlayCard(CardInfo cardInfo) {
-        var newFieldCard = Instantiate(cardInfo.fieldCard);
-        NetworkServer.Spawn(newFieldCard);
+        //var newFieldCard = Instantiate(cardInfo.FieldCard);
+       // NetworkServer.Spawn(newFieldCard);
     }
 
 

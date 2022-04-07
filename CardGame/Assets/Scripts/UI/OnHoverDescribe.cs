@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
 public class OnHoverDescribe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
@@ -15,7 +16,7 @@ public class OnHoverDescribe : MonoBehaviour, IPointerEnterHandler, IPointerExit
         // remove card object 
     }
 
-    GetApexParent(PointerEventData data) {
+    private void GetApexParent(PointerEventData data) {
         //Recursive case: if object is a child, call GetParent(parent)
         //Base case: object has no more parents, return gameobject
     }

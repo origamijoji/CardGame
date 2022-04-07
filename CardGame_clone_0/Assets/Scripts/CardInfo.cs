@@ -16,14 +16,14 @@ public struct CardInfo {
     public ScriptableCard data {
         get { return ScriptableCard.Cache[cardID]; }
     }
-
-    public Sprite image => data.art;
-    public string name => data.name;
-    public string cost => data.manaCost.ToString();
-    public string description => data.description;
+    //public GameObject FieldCard => data.fieldCard;
+    public Sprite Art => data.art;
+    public string Name => data.name;
+    public string ManaCost => data.manaCost.ToString();
+    public string Description => data.description;
 
     public List<Targets> acceptableTargets => ((Minion)data).acceptableTargets;
 }
 
 // Card List
-public class SyncListCard : SyncList<CardInfo> { }
+public class SyncableCardList : SyncList<CardInfo> { }
