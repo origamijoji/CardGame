@@ -49,8 +49,6 @@ MonoBehaviour:
   syncInterval: 0.1
   _health: 0
   _damage: 0
-  _blankCard: {fileID: 8392259107605691607, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
-  playerField: {fileID: 0}
   _deck: {fileID: 3874928634891579215}
   enemyPlayer: {fileID: 0}
 --- !u!114 &3874928634891579215
@@ -70,6 +68,9 @@ MonoBehaviour:
   _player: {fileID: 2305636083855954489}
   deckSize: 0
   handSize: 0
+  _blankCard: {fileID: 0}
+  _playerField: {fileID: 0}
+  testCard: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
 --- !u!114 &2305636083855954488
 MonoBehaviour:
   m_ObjectHideFlags: 0

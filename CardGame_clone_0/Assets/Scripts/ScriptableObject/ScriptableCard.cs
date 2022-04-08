@@ -5,9 +5,6 @@ using System.Linq;
 
 // This script is for ease of creating new cards.
 public class ScriptableCard : ScriptableObject {
-    [SerializeField] private string id;
-    public string CardID { get { return id; } }
-
     [Header("Flair")]
     public new string name;
     public string description;
@@ -21,27 +18,7 @@ public class ScriptableCard : ScriptableObject {
     [HideInInspector] public bool hasOnPlaceAbility;
     public List<Ability> OnPlaceAbility = new List<Ability>();
 
-
-    static Dictionary<string, ScriptableCard> _cache;
-    public static Dictionary<string, ScriptableCard> Cache {
-        get {
-            if (_cache == null) {
-                ScriptableCard[] cards = Resources.LoadAll<ScriptableCard>("");
-                _cache = cards.ToDictionary(card => card.CardID, card => card);
-            }
-            return _cache;
-        }
-    }
-
     protected void OnValidate() {
-        // Get a unique identifier from the asset's unique 'Asset Path'
-        if (CardID == "") {
-#if UNITY_EDITOR
-            string path = AssetDatabase.GetAssetPath(this);
-            id = AssetDatabase.AssetPathToGUID(path);
-#endif
-        }
-
         if (OnPlaceAbility.Count > 0) hasOnPlaceAbility = true;
     }
 }

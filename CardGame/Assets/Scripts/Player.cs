@@ -4,8 +4,6 @@ using UnityEngine;
 using Mirror;
 
 public class Player : Entity {
-    [SerializeField] private GameObject _blankCard;
-    [SerializeField] private Transform playerField;
     [SerializeField] private PlayerDeck _deck;
     public static GameObject s_gameManager;
     public GameObject enemyPlayer;
@@ -33,20 +31,15 @@ public class Player : Entity {
         base.OnStopServer();
     }
 
-    public override void OnStartClient() {
-        if (!isLocalPlayer) { return; }
 
-        base.OnStartClient();
-        if(connectionToServer.identity)
-        playerField = GameObject.Find("Player Field").transform;
-    }
-    
 
-    public void DrawCard(CardInfo cardInfo) {
-        var newCard = Instantiate(_blankCard);
-        newCard.transform.parent = playerField;
-        // newCard.GetComponent<HeldCard>().ChangeCard(cardInfo);
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.X)) {
+            _deck.DrawCard();
+        }
     }
+
+
 
     // setter methods
     [Command]
