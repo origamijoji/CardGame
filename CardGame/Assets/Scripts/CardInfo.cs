@@ -16,7 +16,6 @@ public struct CardInfo {
     public ScriptableCard data {
         get { return ScriptableCard.Cache[cardID]; }
     }
-    //public GameObject FieldCard => data.fieldCard;
     public Sprite Art => data.art;
     public string Name => data.name;
     public string ManaCost => data.manaCost.ToString();

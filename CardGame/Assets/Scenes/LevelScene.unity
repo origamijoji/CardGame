@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 5169582085164105255, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _cardInfo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
     - target: {fileID: 6046931556524602536, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _scaleAmount
       value: 1.7
@@ -616,7 +616,7 @@ PrefabInstance:
     - target: {fileID: 5169582085164105255, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _cardInfo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
     - target: {fileID: 6046931556524602536, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _scaleAmount
       value: 1.7
@@ -1267,7 +1267,7 @@ PrefabInstance:
     - target: {fileID: 5169582085164105255, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _cardInfo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
     - target: {fileID: 6046931556524602536, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _scaleAmount
       value: 1.7
@@ -1564,7 +1564,7 @@ PrefabInstance:
     - target: {fileID: 5169582085164105255, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _cardInfo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
     - target: {fileID: 6046931556524602536, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _scaleAmount
       value: 1.7
@@ -1674,7 +1674,7 @@ PrefabInstance:
     - target: {fileID: 5169582085164105255, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _cardInfo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
     - target: {fileID: 6046931556524602536, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _scaleAmount
       value: 1.7
@@ -1943,7 +1943,7 @@ PrefabInstance:
     - target: {fileID: 5169582085164105255, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: _cardInfo
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
     - target: {fileID: 8392259107605691607, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
       propertyPath: m_Name
       value: Card

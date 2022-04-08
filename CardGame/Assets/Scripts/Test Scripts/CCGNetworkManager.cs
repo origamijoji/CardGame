@@ -11,8 +11,8 @@ public class CCGNetworkManager : NetworkManager
         NetworkServer.Spawn(gameManager);
     }
     public override void OnServerConnect(NetworkConnectionToClient conn) {
-        //base.OnServerConnect(conn);
-        //var localData = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "LocalData"));
-        //NetworkServer.Spawn(localData);
+    }
+    public override void OnClientConnect() {
+        base.OnClientConnect();
     }
 }

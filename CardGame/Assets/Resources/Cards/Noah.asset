@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01856607017abf34a8f709e523ca2b8e, type: 3}
-  m_Name: Test Minion
+  m_Name: Noah
   m_EditorClassIdentifier: 
   id: 185a376931b7148468c767e272fba94e
   name: Noah

@@ -8,6 +8,8 @@ public class Player : Entity {
     [SerializeField] private Transform playerField;
     [SerializeField] private PlayerDeck _deck;
     public static GameObject s_gameManager;
+    public GameObject enemyPlayer;
+
     public int MaxMana {
         get { return Mathf.Min(_currentMaxMana, _totalMaxMana); }
     }
@@ -20,21 +22,30 @@ public class Player : Entity {
         // opposing player wins !
     }
 
-
-    public override void OnStartClient() {
-        if (!isLocalPlayer) { return; }
-        base.OnStartClient();
-        playerField = GameObject.Find("Player Field").transform;
-        if(s_gameManager = null) {
-        s_gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
+    public override void OnStartServer() {
+        base.OnStartServer();
+        if (s_gameManager = null) {
+            s_gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
             NetworkServer.Spawn(s_gameManager);
         }
     }
+    public override void OnStopServer() {
+        base.OnStopServer();
+    }
+
+    public override void OnStartClient() {
+        if (!isLocalPlayer) { return; }
+
+        base.OnStartClient();
+        if(connectionToServer.identity)
+        playerField = GameObject.Find("Player Field").transform;
+    }
+    
 
     public void DrawCard(CardInfo cardInfo) {
         var newCard = Instantiate(_blankCard);
         newCard.transform.parent = playerField;
-       // newCard.GetComponent<HeldCard>().ChangeCard(cardInfo);
+        // newCard.GetComponent<HeldCard>().ChangeCard(cardInfo);
     }
 
     // setter methods
