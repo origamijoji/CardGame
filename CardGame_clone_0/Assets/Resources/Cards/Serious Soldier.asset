@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01856607017abf34a8f709e523ca2b8e, type: 3}
-  m_Name: Noah
+  m_Name: Serious Soldier
   m_EditorClassIdentifier: 
-  name: Noah
-  description: Kingpin. Monarch. Lethal. (He did it. He won the major.)
-  art: {fileID: 21300000, guid: a328daa462aef0a4695b76bdc58c23d9, type: 3}
+  name: Serious Soldier
+  description: He is very serious
+  art: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   manaCost: 3
-  hasOnPlaceAbility: 1
+  hasOnPlaceAbility: 0
   OnPlaceAbility: []
-  health: 6
-  attack: 3
+  health: 3
+  attack: 4
   acceptableTargets: 0100000003000000
   race: 00000000
   onDeathAbility: []
-  hasOnDeathEffect: 1
-  isKingpin: 1
+  hasOnDeathEffect: 0
+  isKingpin: 0
   isFeint: 0
   isQuick: 0
-  isLethal: 1
+  isLethal: 0
   isDualWield: 0
-  isMonarch: 1
+  isMonarch: 0
   fieldCard: {fileID: 0}

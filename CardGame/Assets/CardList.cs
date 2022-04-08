@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,13 +13,21 @@ public class CardList : MonoBehaviour
         }
     }
 
-
-    public List<ScriptableCard> cardList = new List<ScriptableCard>();
-    private void Start() {
+    public static ScriptableCard GetCard(int cardID) {
+        return cardList[cardID];
     }
 
-    public class LegalCard {
-        public ScriptableCard Card { get; }
-        public string Name { get { return Card.name; } }
+    public static void AddCard(int cardID, ScriptableCard card) {
+        cardList.Add(cardID, card);
+    }
+
+    public List<CardInfo> cards = new List<CardInfo>();
+
+    public static Dictionary<int, ScriptableCard> cardList = new Dictionary<int, ScriptableCard>();
+
+    private void Awake() {
+        foreach(CardInfo cardInfo in cards) {
+            AddCard(cardInfo.cardID, cardInfo.scriptableCard);
+        }
     }
 }

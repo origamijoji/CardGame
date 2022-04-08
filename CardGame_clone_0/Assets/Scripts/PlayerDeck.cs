@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -17,27 +16,22 @@ public class PlayerDeck : NetworkBehaviour {
         base.OnStartClient();
         _playerHand = ReferenceManager.Instance.PlayerHand.transform;
         _blankCard = ReferenceManager.Instance.Card;
-        for (int i = 30; i > 0; i--) {
-        }
     }
+    public List<int> deckList = new List<int>();
 
-    public readonly SyncableCardList _deckList = new SyncableCardList();
-    public readonly SyncableCardList _deck = new SyncableCardList();
-    public readonly SyncableCardList _graveyard = new SyncableCardList();
-    public readonly SyncableCardList _hand = new SyncableCardList();
+    public readonly SyncList<int> _deck = new SyncList<int>();
+    public readonly  SyncList<int> _hand = new  SyncList<int>();
 
     public void ImportDeck() {
-
+        //_deck = deckList;
     }
 
     public void DrawCard() {
-        var newCardInfo = _deck[1];
+        var newCardInfo = deckList[1];
         var newCard = Instantiate(_blankCard);
         newCard.transform.SetParent(_playerHand);
-        _hand.Add(newCardInfo);
-        _deck.RemoveAt(1);
-        newCard.GetComponent<HeldCard>().UpdateCard(newCardInfo);
-        newCard.GetComponent<HeldCard>().DisplayInfo();
-        // newCard.GetComponent<HeldCard>().ChangeCard(cardInfo);
+        //_hand.Add(newCardInfo);
+        deckList.RemoveAt(1);
+        newCard.GetComponent<HeldCard>().DisplayInfo(1);
     }
 }

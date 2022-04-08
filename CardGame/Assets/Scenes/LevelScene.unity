@@ -1061,9 +1061,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba1f83ee4262a249aa8a6f6c77ef306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardList:
-  - {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
-  - {fileID: 11400000, guid: 9effd828dd1782b47814bda79f5035e6, type: 2}
+  cards:
+  - cardID: 1
+    scriptableCard: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
+  - cardID: 2
+    scriptableCard: {fileID: 11400000, guid: 1f1061a5048dfbf42a2799db14d02113, type: 2}
+  - cardID: 2
+    scriptableCard: {fileID: 11400000, guid: 1f1061a5048dfbf42a2799db14d02113, type: 2}
 --- !u!4 &1253743301
 Transform:
   m_ObjectHideFlags: 0

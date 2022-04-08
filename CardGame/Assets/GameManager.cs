@@ -13,8 +13,6 @@ public class GameManager : NetworkBehaviour {
         }
     }
 
-    private readonly SyncableCardList player1Deck = new SyncableCardList();
-    private readonly SyncableCardList player2Deck = new SyncableCardList();
 
     public void DrawCards(int amount) {
         for(int cardsDrawn = 0; cardsDrawn < amount; cardsDrawn++) {
@@ -24,8 +22,6 @@ public class GameManager : NetworkBehaviour {
 
 
     public void PlayCard(CardInfo cardInfo) {
-       //var newFieldCard = Instantiate(cardInfo.FieldCard);
-       // NetworkServer.Spawn(newFieldCard);
     }
 
 

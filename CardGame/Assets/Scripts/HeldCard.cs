@@ -5,10 +5,7 @@ using TMPro;
 public class HeldCard : MonoBehaviour
 {
     // Composition
-    //public ScriptableCard _cardInfo;
     public ScriptableCard _cardInfo;
-
-    //reference to OnHoverEnlarge component on same prefab
 
     // Components
     [SerializeField] private Image _art;
@@ -18,11 +15,8 @@ public class HeldCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _cost;
 
-    public void UpdateCard(ScriptableCard cardInfo) {
-        _cardInfo = ;
-    }        
-
-    public void DisplayInfo() {
+    public void DisplayInfo(int cardID) {
+        _cardInfo = CardList.GetCard(cardID);
 
         if(_cardInfo is Minion minionInfo) {
             _health.text = minionInfo.health.ToString();

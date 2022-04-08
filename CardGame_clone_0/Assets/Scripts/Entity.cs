@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mirror;
 public abstract class Entity : NetworkBehaviour
 {
@@ -13,8 +10,6 @@ public abstract class Entity : NetworkBehaviour
     public int GetHealth() {
         return _health;
     }
-
-
     public void TakeDamage(int damage) {
         _health -= damage;
         if(_health <= 0) {
@@ -23,5 +18,4 @@ public abstract class Entity : NetworkBehaviour
         }
     }
     public abstract void OnDeath();
-
 }

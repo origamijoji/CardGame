@@ -27,11 +27,6 @@ public class Player : Entity {
             NetworkServer.Spawn(s_gameManager);
         }
     }
-    public override void OnStopServer() {
-        base.OnStopServer();
-    }
-
-
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.X)) {
@@ -39,35 +34,18 @@ public class Player : Entity {
         }
     }
 
-
-
-    // setter methods
-    [Command]
-    public void IncreaseMaxMana(int mana) {
-        _currentMaxMana += mana;
-    }
     [Command]
     public void DecreaseMaxMana(int mana) {
         _currentMaxMana -= mana;
     }
 
     [Command]
-    public void IncreaseRoundMana(int mana) {
-        _roundMana += mana;
-    }
-    [Command]
     public void DecreaseRoundMana(int mana) {
         _roundMana -= mana;
     }
 
     [Command]
-    public void IncreaseHealth(int health) {
-        _health += health;
-    }
-    [Command]
     public void DecreaseHealth(int health) {
         _health -= health;
     }
-
-
 }
