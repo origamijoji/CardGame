@@ -10,9 +10,4 @@ public class CCGNetworkManager : NetworkManager
         var gameManager = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
         NetworkServer.Spawn(gameManager);
     }
-    public override void OnServerConnect(NetworkConnectionToClient conn) {
-    }
-    public override void OnClientConnect() {
-        base.OnClientConnect();
-    }
 }

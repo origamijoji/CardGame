@@ -12,26 +12,32 @@ public class PlayerDeck : NetworkBehaviour {
 
     public override void OnStartClient() {
         if (!isLocalPlayer) { return; }
-
-        base.OnStartClient();
         _playerHand = ReferenceManager.Instance.PlayerHand.transform;
         _blankCard = ReferenceManager.Instance.Card;
     }
+
     public List<int> deckList = new List<int>();
 
     public readonly SyncList<int> _deck = new SyncList<int>();
-    public readonly  SyncList<int> _hand = new  SyncList<int>();
+    public readonly SyncList<int> _hand = new  SyncList<int>();
 
+    [Command]
     public void ImportDeck() {
-        //_deck = deckList;
+        if (!isLocalPlayer) { return; }
+        foreach(int card in deckList) {
+            _deck.Add(card);
+        }
     }
 
+    [Command]
     public void DrawCard() {
+        if (!isLocalPlayer) { return; }
         var newCardInfo = deckList[1];
         var newCard = Instantiate(_blankCard);
         newCard.transform.SetParent(_playerHand);
+        newCard.transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
         //_hand.Add(newCardInfo);
         deckList.RemoveAt(1);
-        newCard.GetComponent<HeldCard>().DisplayInfo(1);
+        newCard.GetComponent<HeldCard>().DisplayInfo(newCardInfo);
     }
 }

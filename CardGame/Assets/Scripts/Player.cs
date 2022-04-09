@@ -5,7 +5,7 @@ using Mirror;
 
 public class Player : Entity {
     [SerializeField] private PlayerDeck _deck;
-    public static GameObject s_gameManager;
+    public GameObject _gameManager;
     public GameObject enemyPlayer;
 
     public int MaxMana {
@@ -21,11 +21,14 @@ public class Player : Entity {
     }
 
     public override void OnStartServer() {
-        base.OnStartServer();
-        if (s_gameManager = null) {
-            s_gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
-            NetworkServer.Spawn(s_gameManager);
+        if (_gameManager = null) {
+            _gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
+            NetworkServer.Spawn(_gameManager);
         }
+    }
+    public override void OnStartClient() {
+        _gameManager = GameObject.Find("GameManager(Clone)");
+        _gameManager.GetComponent<TestServer>().AddPlayer(gameObject);
     }
 
     private void Update() {
