@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +20,7 @@ public class ScriptableAbility : ScriptableObject {
     [Header("Properties")]
     public bool untilEndOfTurn = false; // Whether the buffs/debuffs last until the end of turn or are permanent. Permanent by default.
 
-    public virtual void Cast(Entity target) {
-
-    }
+    public virtual void Cast(Entity target) { }
 
     private void OnValidate() {
         // By default, all creatures can only attack enemy creatures and our opponent. We set it here so every card get it's automatically.

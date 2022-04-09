@@ -7,8 +7,6 @@ public class HeldCard : MonoBehaviour
     // Composition
     public ScriptableCard _cardInfo;
 
-    //reference to OnHoverEnlarge component on same prefab
-
     // Components
     [SerializeField] private Image _art;
     [SerializeField] private TextMeshProUGUI _health;
@@ -17,24 +15,20 @@ public class HeldCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _cost;
 
-    // public void ChangeCard(CardInfo cardInfo) {
-    //      _cardInfo = cardInfo;
-    //     DisplayInfo();
-    // }
-    private void Update() {
-        DisplayInfo();
-    }
+    public void DisplayInfo(int cardID) {
+        _cardInfo = CardList.GetCard(cardID);
 
-    private void DisplayInfo() {
-        /*
-        if(_cardInfo)
+        if(_cardInfo is Minion minionInfo) {
+            _health.text = minionInfo.health.ToString();
+            _attack.text = minionInfo.attack.ToString();
+        }
+        if(_cardInfo is Spell spellInfo) {
+
+        }
         _art.sprite = _cardInfo.art;
-        _health.text = _cardInfo.health.ToString();
-        _attack.text = _cardInfo.attack.ToString();
         _name.text = _cardInfo.name.ToString();
         _description.text = _cardInfo.description.ToString();
         _cost.text = _cardInfo.manaCost.ToString();
-        */
     }
 
 }

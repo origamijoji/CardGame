@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f805e580006d0d48943fdc8bd51dfde, type: 3}
-  m_Name: Test Spell
+  m_Name: Holy Fire
   m_EditorClassIdentifier: 
   id: 9effd828dd1782b47814bda79f5035e6
-  name: Test Spell
-  description: 
+  name: Holy Fire
+  description: Deal 3 damage to an enemy.
   art: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  manaCost: 3
+  manaCost: 2
   hasOnPlaceAbility: 1
   OnPlaceAbility: []

@@ -5,5 +5,19 @@ using Mirror;
 
 public class FieldCard : Entity
 {
+    // add reference to original card object
+    // public reference to dragattack on same prefab
+    // public reference to OnHoverDescribe component on same prefab
+
+    public void Attack(Entity target) {
+        var targetEntity = target.GetComponent<Entity>();
+        targetEntity.TakeDamage(GetDamage());
+        TakeDamage(target.GetDamage());
+    }
+
+    public override void OnDeath() {
+        // if card has death ability, do it
+        // otherwise, return
+    }
 
 }

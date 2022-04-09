@@ -14,16 +14,14 @@ public class GameManager : NetworkBehaviour {
     }
 
 
-
-    private readonly SyncList<CardInfo> player1Deck = new SyncList<CardInfo>();
-    private readonly SyncList<CardInfo> player2Deck = new SyncList<CardInfo>();
-
-    [ClientRpc]
-    public void RpcDrawCards(int amount) {
+    public void DrawCards(int amount) {
+        for(int cardsDrawn = 0; cardsDrawn < amount; cardsDrawn++) {
+            // draw a card
+        }
     }
 
-    public void PlayCard(int player, CardInfo cardInfo) {
 
+    public void PlayCard(CardInfo cardInfo) {
     }
 
 
