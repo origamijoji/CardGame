@@ -6,6 +6,7 @@ public class HeldCard : MonoBehaviour
 {
     // Composition
     public ScriptableCard _cardInfo;
+    public int CardID { get; private set; }
 
     // Components
     [SerializeField] private Image _art;
@@ -17,6 +18,7 @@ public class HeldCard : MonoBehaviour
 
     public void DisplayInfo(int cardID) {
         _cardInfo = CardList.GetCard(cardID);
+        CardID = cardID;
 
         if(_cardInfo is Minion minionInfo) {
             _health.text = minionInfo.health.ToString();

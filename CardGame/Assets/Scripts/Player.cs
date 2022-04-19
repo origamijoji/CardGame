@@ -12,9 +12,9 @@ public class Player : Entity {
         get { return Mathf.Min(_currentMaxMana, _totalMaxMana); }
     }
 
-    [SyncVar] private int _roundMana;
-    [SyncVar] private int _currentMaxMana;
-    [SyncVar] private int _totalMaxMana = 10;
+    private int _roundMana;
+    private int _currentMaxMana;
+    private int _totalMaxMana = 10;
 
     public override void OnDeath() {
         // opposing player wins !

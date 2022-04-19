@@ -546,9 +546,9 @@ GameObject:
   - component: {fileID: 923599024}
   - component: {fileID: 923599023}
   - component: {fileID: 923599022}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Opponent Field
-  m_TagString: Untagged
+  m_TagString: Play Zone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1205,7 +1205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.17484716, g: 0.38679248, b: 0.15873088, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1483,9 +1483,9 @@ GameObject:
   - component: {fileID: 4711589369539223000}
   - component: {fileID: 4711589369539223001}
   - component: {fileID: 4711589369539223002}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Player Field
-  m_TagString: Untagged
+  m_TagString: Play Zone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

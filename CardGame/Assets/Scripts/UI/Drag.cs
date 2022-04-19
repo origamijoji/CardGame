@@ -27,7 +27,10 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     }
 
     public void OnEndDrag(PointerEventData _EventData) {
-        ReturnCard = StartCoroutine(ReturnToHand());
+        foreach(GameObject hoverObject in _EventData.hovered) {
+            Debug.Log(hoverObject);
+        }
+                ReturnCard = StartCoroutine(ReturnToHand());
         //if(Physics2D.Raycast(Input.mousePosition, Vector2.))
     }
 
