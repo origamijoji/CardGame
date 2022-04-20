@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+
 public class GameManager : NetworkBehaviour {
     static GameManager _instance;
     public static GameManager Instance {
@@ -21,13 +22,15 @@ public class GameManager : NetworkBehaviour {
     }
 
 
-    public void PlayCard(CardInfo cardInfo) {
-    }
-
-
-    private void Start() {
-
-
+    public void PlayCard(int cardID) {
+        if (CardList.GetCard(cardID) is Minion minionCard) {
+            var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
+            var newCard = Instantiate(newCardPrefab);
+            NetworkServer.Spawn(newCard);
+            newCard.GetComponent<FieldCard>().SetCard(minionCard);
+            newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
+            newCard.transform.localScale = newCardPrefab.transform.localScale;
+        }
     }
 
 }

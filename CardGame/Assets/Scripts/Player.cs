@@ -12,28 +12,42 @@ public class Player : Entity {
         get { return Mathf.Min(_currentMaxMana, _totalMaxMana); }
     }
 
-    [SyncVar] private int _roundMana;
-    [SyncVar] private int _currentMaxMana;
-    [SyncVar] private int _totalMaxMana = 10;
+    private int _roundMana;
+    private int _currentMaxMana;
+    private int _totalMaxMana = 10;
 
     public override void OnDeath() {
         // opposing player wins !
     }
 
     public override void OnStartServer() {
-        if (_gameManager = null) {
-            _gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
-            NetworkServer.Spawn(_gameManager);
-        }
+
+        //if (_gameManager = null) {
+        //    _gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
+        //    NetworkServer.Spawn(_gameManager);
+        //}
     }
     public override void OnStartClient() {
-        _gameManager = GameObject.Find("GameManager(Clone)");
-        _gameManager.GetComponent<TestServer>().AddPlayer(gameObject);
+        ReferenceManager.Instance.Player = this;
+        //_gameManager = GameObject.Find("GameManager(Clone)");
+        //_gameManager.GetComponent<TestServer>().AddPlayer(gameObject);
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.X)) {
             _deck.DrawCard();
+        }
+    }
+
+    [Command]
+    public void PlayCard(int cardID) {
+        if (CardList.GetCard(cardID) is Minion minionCard) {
+            var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
+            var newCard = Instantiate(newCardPrefab);
+            NetworkServer.Spawn(newCard);
+            newCard.GetComponent<FieldCard>().SetCard(minionCard);
+            newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
+            newCard.transform.localScale = newCardPrefab.transform.localScale;
         }
     }
 
