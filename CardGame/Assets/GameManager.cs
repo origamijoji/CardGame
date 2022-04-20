@@ -23,12 +23,14 @@ public class GameManager : NetworkBehaviour {
 
 
     public void PlayCard(int cardID) {
-    }
-
-
-    private void Start() {
-
-
+        if (CardList.GetCard(cardID) is Minion minionCard) {
+            var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
+            var newCard = Instantiate(newCardPrefab);
+            NetworkServer.Spawn(newCard);
+            newCard.GetComponent<FieldCard>().SetCard(minionCard);
+            newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
+            newCard.transform.localScale = newCardPrefab.transform.localScale;
+        }
     }
 
 }

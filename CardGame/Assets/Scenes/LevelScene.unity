@@ -519,7 +519,7 @@ MonoBehaviour:
   <PlayerHand>k__BackingField: {fileID: 4711589371226651110}
   <Card>k__BackingField: {fileID: 8392259107605691607, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
   <CardShadow>k__BackingField: {fileID: 1229221714983144057, guid: eae1721587550194b99963cd6217a837, type: 3}
-  <PlayZone>k__BackingField: {fileID: 2014693824}
+  <PlayerField>k__BackingField: {fileID: 4711589369539223004}
 --- !u!4 &903786139
 Transform:
   m_ObjectHideFlags: 0
@@ -1062,9 +1062,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards:
-  - cardID: 1
+  - cardID: 0
     scriptableCard: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
-  - cardID: 2
+  - cardID: 1
     scriptableCard: {fileID: 11400000, guid: 1f1061a5048dfbf42a2799db14d02113, type: 2}
 --- !u!4 &1253743301
 Transform:
@@ -1340,7 +1340,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2014693825}
-  - component: {fileID: 2014693824}
   m_Layer: 6
   m_Name: Play Zone
   m_TagString: Untagged
@@ -1348,32 +1347,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &2014693824
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014693823}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 43.61322, y: -37.36724}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 521.79504, y: 141.05055}
-  m_EdgeRadius: 0
 --- !u!4 &2014693825
 Transform:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
   hasOnPlaceAbility: 0
   OnPlaceAbility: []
   health: 3
-  attack: 4
+  damage: 5
   acceptableTargets: 0100000003000000
   race: 00000000
   onDeathAbility: []

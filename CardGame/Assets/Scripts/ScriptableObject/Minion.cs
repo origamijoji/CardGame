@@ -6,7 +6,7 @@ using UnityEngine;
 public class Minion : ScriptableCard
 {
     public int health;
-    public int attack;
+    public int damage;
 
     [Header("Targets")]
     public List<Targets> acceptableTargets = new List<Targets>();

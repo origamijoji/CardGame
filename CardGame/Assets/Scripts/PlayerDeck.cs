@@ -32,12 +32,12 @@ public class PlayerDeck : NetworkBehaviour {
     [Command]
     public void DrawCard() {
         if (!isLocalPlayer) { return; }
-        var newCardInfo = deckList[1];
+        var newCardInfo = deckList[0];
         var newCard = Instantiate(_blankCard);
         newCard.transform.SetParent(_playerHand);
         newCard.transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
         //_hand.Add(newCardInfo);
-        deckList.RemoveAt(1);
+        deckList.RemoveAt(0);
         newCard.GetComponent<HeldCard>().DisplayInfo(newCardInfo);
     }
 }

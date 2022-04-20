@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 3871429862249510898}
   - component: {fileID: 4903951074266173132}
   m_Layer: 5
-  m_Name: Card Attack
+  m_Name: Card Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -878,7 +878,7 @@ MonoBehaviour:
   _cardInfo: {fileID: 0}
   _art: {fileID: 8392259107646244392}
   _health: {fileID: 495493292187242223}
-  _attack: {fileID: 4903951074266173132}
+  _damage: {fileID: 4903951074266173132}
   _name: {fileID: 7847804249624577140}
   _description: {fileID: 5829809923342359826}
   _cost: {fileID: 3432774492706504864}
