@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Serious Soldier
   description: He is very serious
-  art: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  art: {fileID: 21300000, guid: a46b2956ed2a640478f24d4611befe36, type: 3}
   manaCost: 3
   hasOnPlaceAbility: 0
   OnPlaceAbility: []
-  health: 3
+  health: 2
   damage: 5
   acceptableTargets: 0100000003000000
   race: 00000000

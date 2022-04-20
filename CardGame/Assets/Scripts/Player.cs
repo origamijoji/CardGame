@@ -21,19 +21,33 @@ public class Player : Entity {
     }
 
     public override void OnStartServer() {
-        if (_gameManager = null) {
-            _gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
-            NetworkServer.Spawn(_gameManager);
-        }
+
+        //if (_gameManager = null) {
+        //    _gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
+        //    NetworkServer.Spawn(_gameManager);
+        //}
     }
     public override void OnStartClient() {
-        _gameManager = GameObject.Find("GameManager(Clone)");
-        _gameManager.GetComponent<TestServer>().AddPlayer(gameObject);
+        ReferenceManager.Instance.Player = this;
+        //_gameManager = GameObject.Find("GameManager(Clone)");
+        //_gameManager.GetComponent<TestServer>().AddPlayer(gameObject);
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.X)) {
             _deck.DrawCard();
+        }
+    }
+
+    [Command]
+    public void PlayCard(int cardID) {
+        if (CardList.GetCard(cardID) is Minion minionCard) {
+            var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
+            var newCard = Instantiate(newCardPrefab);
+            NetworkServer.Spawn(newCard);
+            newCard.GetComponent<FieldCard>().SetCard(minionCard);
+            newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
+            newCard.transform.localScale = newCardPrefab.transform.localScale;
         }
     }
 

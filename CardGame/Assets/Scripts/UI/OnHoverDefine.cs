@@ -13,8 +13,8 @@ public class OnHoverDefine: MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _cardPreview = Instantiate(ReferenceManager.Instance.Card);
         _cardPreview.GetComponent<HeldCard>().DisplayInfo(thisCard.BaseCard);
         _cardPreview.transform.SetParent(ReferenceManager.Instance.Table.transform);
-        _cardPreview.transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
-        _cardPreview.transform.position = gameObject.transform.position + Vector3.right * 150;
+        _cardPreview.transform.localScale = ReferenceManager.Instance.Card.transform.localScale * 2;
+        _cardPreview.transform.position = gameObject.transform.position + Vector3.right * 200;
         //DefineCardRoutine = StartCoroutine(DefineCard());
     }
     public void OnPointerExit(PointerEventData _EventData) {
