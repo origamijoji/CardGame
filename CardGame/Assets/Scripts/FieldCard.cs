@@ -6,12 +6,14 @@ using Mirror;
 public class FieldCard : Entity
 {
     [field: SerializeField] public ScriptableCard BaseCard { get; private set; }
+    [field: SerializeField] public int CardID { get; private set; }
     // add reference to original card object
     // public reference to dragattack on same prefab
     // public reference to OnHoverDescribe component on same prefab
 
-    public void SetCard(Minion card) {
+    public void SetCard(Minion card, int cardID) {
         BaseCard = card;
+        CardID = cardID;
         _damage = card.damage;
         _health = card.health;
     }

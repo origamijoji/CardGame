@@ -6,21 +6,23 @@ public class HeldCard : MonoBehaviour
 {
     // Composition
     public ScriptableCard _cardInfo;
+    public int CardID { get; private set; }
 
     // Components
     [SerializeField] private Image _art;
     [SerializeField] private TextMeshProUGUI _health;
-    [SerializeField] private TextMeshProUGUI _attack;
+    [SerializeField] private TextMeshProUGUI _damage;
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _cost;
 
     public void DisplayInfo(int cardID) {
         _cardInfo = CardList.GetCard(cardID);
+        CardID = cardID;
 
         if(_cardInfo is Minion minionInfo) {
             _health.text = minionInfo.health.ToString();
-            _attack.text = minionInfo.attack.ToString();
+            _damage.text = minionInfo.damage.ToString();
         }
         if(_cardInfo is Spell spellInfo) {
 
@@ -31,4 +33,19 @@ public class HeldCard : MonoBehaviour
         _cost.text = _cardInfo.manaCost.ToString();
     }
 
+    public void DisplayInfo(ScriptableCard scriptableCard) {
+        _cardInfo = scriptableCard;
+
+        if (_cardInfo is Minion minionInfo) {
+            _health.text = minionInfo.health.ToString();
+            _damage.text = minionInfo.damage.ToString();
+        }
+        if (_cardInfo is Spell spellInfo) {
+
+        }
+        _art.sprite = _cardInfo.art;
+        _name.text = _cardInfo.name.ToString();
+        _description.text = _cardInfo.description.ToString();
+        _cost.text = _cardInfo.manaCost.ToString();
+    }
 }

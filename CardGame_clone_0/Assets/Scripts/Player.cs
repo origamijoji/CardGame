@@ -5,30 +5,56 @@ using Mirror;
 
 public class Player : Entity {
     [SerializeField] private PlayerDeck _deck;
-    public GameObject _gameManager;
+    public static Player LocalPlayer { get; private set; }
+    public int PlayerNum { get; private set; }
     public GameObject enemyPlayer;
+
 
     public int MaxMana {
         get { return Mathf.Min(_currentMaxMana, _totalMaxMana); }
     }
+    public int CurrentMaxMana
+    {
+        get => _currentMaxMana;
+        set => _currentMaxMana = CurrentMaxMana;
+    }
+    public int Mana
+    {
+        get => _mana;
+        set { _mana = Mana; }
+    }
 
-    [SyncVar] private int _roundMana;
-    [SyncVar] private int _currentMaxMana;
-    [SyncVar] private int _totalMaxMana = 10;
+    [SerializeField] private int _mana;
+    private int _currentMaxMana;
+    private int _totalMaxMana = 10;
 
     public override void OnDeath() {
         // opposing player wins !
     }
 
-    public override void OnStartServer() {
-        if (_gameManager = null) {
-            _gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
-            NetworkServer.Spawn(_gameManager);
-        }
+    public override void OnStartLocalPlayer()
+    {
+        LocalPlayer = this;
+        PlayerNum = (int)netId;
+
+        //LocalPlayer.Mana = 5;
+        //Debug.Log(LocalPlayer.Mana);
+
     }
-    public override void OnStartClient() {
-        _gameManager = GameObject.Find("GameManager(Clone)");
-        _gameManager.GetComponent<TestServer>().AddPlayer(gameObject);
+    public override void OnStartServer()
+    {
+        Debug.Log("ran on server");
+    }
+    public override void OnStartClient()
+    {
+        Debug.Log("ran on client" + netId);
+    }
+
+    public void CmdResetValues()
+    {
+        Mana = 5;
+        CurrentMaxMana = 0;
+        Health = 30;
     }
 
     private void Update() {
@@ -38,13 +64,15 @@ public class Player : Entity {
     }
 
     [Command]
-    public void DecreaseMaxMana(int mana) {
-        _currentMaxMana -= mana;
-    }
-
-    [Command]
-    public void DecreaseRoundMana(int mana) {
-        _roundMana -= mana;
+    public void PlayCard(int cardID) {
+        if (CardList.GetCard(cardID) is Minion minionCard) {
+            var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
+            var newCard = Instantiate(newCardPrefab);
+            NetworkServer.Spawn(newCard);
+            newCard.GetComponent<FieldCard>().SetCard(minionCard, cardID);
+            newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
+            newCard.transform.localScale = newCardPrefab.transform.localScale;
+        }
     }
 
     [Command]

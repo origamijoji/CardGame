@@ -40,7 +40,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             if (Input.GetMouseButtonDown(1)) {
                 Debug.Log("Card Played");
                 
-                ReferenceManager.Instance.Player.PlayCard(gameObject.GetComponent<HeldCard>().CardID);
+                Player.LocalPlayer.PlayCard(gameObject.GetComponent<HeldCard>().CardID);
                 Destroy(_cardShadow);
                 Destroy(gameObject);
                 yield break;

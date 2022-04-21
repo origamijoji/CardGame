@@ -12,7 +12,6 @@ public class ReferenceManager : MonoBehaviour {
             return _instance;
         }
     }
-    [field: SerializeField] public Player Player { get; set; }
     [field: SerializeField] public GameObject Table { get; private set; }
     [field: SerializeField] public GameObject PlayerHand { get; private set; }
     [field: SerializeField] public GameObject Card { get; private set; }

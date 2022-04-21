@@ -8,7 +8,8 @@ public class PlayerDeck : NetworkBehaviour {
     [HideInInspector] public int handSize = 7;
     [SerializeField] private GameObject _blankCard;
     [SerializeField] private Transform _playerHand;
-    public ScriptableCard testCard;
+
+    public List<int> deckList = new List<int>();
 
     public override void OnStartClient() {
         if (!isLocalPlayer) { return; }
@@ -16,22 +17,11 @@ public class PlayerDeck : NetworkBehaviour {
         _blankCard = ReferenceManager.Instance.Card;
     }
 
-    public List<int> deckList = new List<int>();
-
-    public readonly SyncList<int> _deck = new SyncList<int>();
-    public readonly SyncList<int> _hand = new  SyncList<int>();
-
-    [Command]
-    public void ImportDeck() {
-        if (!isLocalPlayer) { return; }
-        foreach(int card in deckList) {
-            _deck.Add(card);
-        }
-    }
 
     [Command]
     public void DrawCard() {
         if (!isLocalPlayer) { return; }
+        
         var newCardInfo = deckList[0];
         var newCard = Instantiate(_blankCard);
         newCard.transform.SetParent(_playerHand);
