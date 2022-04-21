@@ -10,13 +10,6 @@ public class FieldCard : Entity
     // public reference to dragattack on same prefab
     // public reference to OnHoverDescribe component on same prefab
 
-
-
-    public void Attack(Entity target) {
-        var targetEntity = target.GetComponent<Entity>();
-        targetEntity.TakeDamage(GetDamage());
-        TakeDamage(target.GetDamage());
-    }
     public void SetCard(Minion card) {
         BaseCard = card;
         _damage = card.damage;

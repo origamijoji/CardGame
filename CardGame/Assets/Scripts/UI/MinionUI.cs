@@ -12,8 +12,8 @@ public class MinionUI : MonoBehaviour
     [SerializeField] private RawImage _rawImage;
 
     public void UpdateUI() {
-        _healthUI.text = _thisCard._health.ToString();
-        _damageUI.text = _thisCard._damage.ToString();
+        _healthUI.text = _thisCard.GetHealth().ToString();
+        _damageUI.text = _thisCard.GetDamage().ToString();
     }
     public void SetImage() {
         _rawImage.texture = _thisCard.BaseCard.art.texture;

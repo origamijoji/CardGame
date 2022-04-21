@@ -5,6 +5,7 @@ using Mirror;
 
 public class Player : Entity {
     [SerializeField] private PlayerDeck _deck;
+    public static Player LocalPlayer { get; private set; }
     public GameObject _gameManager;
     public GameObject enemyPlayer;
 
@@ -20,17 +21,11 @@ public class Player : Entity {
         // opposing player wins !
     }
 
-    public override void OnStartServer() {
 
-        //if (_gameManager = null) {
-        //    _gameManager = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "GameManager"));
-        //    NetworkServer.Spawn(_gameManager);
-        //}
-    }
-    public override void OnStartClient() {
-        ReferenceManager.Instance.Player = this;
-        //_gameManager = GameObject.Find("GameManager(Clone)");
-        //_gameManager.GetComponent<TestServer>().AddPlayer(gameObject);
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        LocalPlayer = this;
     }
 
     private void Update() {
