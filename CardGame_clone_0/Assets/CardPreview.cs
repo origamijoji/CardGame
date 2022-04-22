@@ -9,7 +9,14 @@ public class CardPreview : MonoBehaviour
     [SerializeField] private Image _cardPreview;
     void Update()
     {
-        if(_thisCard.CanAttack)
+        if(_thisCard.IsLocal == false) { return; }
+        //if not current turn: return
+
+        if(_thisCard == DragAttack.CurrentAttacker)
+        {
+            _cardPreview.color = Color.magenta;
+        }
+        else if(_thisCard.CanAttack)
         {
             _cardPreview.color = Color.green;
         }

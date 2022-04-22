@@ -22,11 +22,12 @@ public abstract class Entity : NetworkBehaviour
     [Command(requiresAuthority = false)] public void SetDualWield(bool value) => IsDualWield = value;
     [SyncVar] public bool CanAttackAgain;
     [Command(requiresAuthority = false)] public void SetCanAttackAgain(bool value) => CanAttackAgain = value;
+    [field: SerializeField] public bool IsLocal { get; set; }
 
     [Command(requiresAuthority = false)]
     public void TakeDamage(int damage)
     {
-        if(IsFeint)
+        if (IsFeint)
         {
             SetFeint(false);
             return;
@@ -42,7 +43,8 @@ public abstract class Entity : NetworkBehaviour
     public void Attack(Entity target)
     {
         GameManager.Instance.CmdAttackEntity(this, target);
-        if(CanAttackAgain)
+        CanAttack = false;
+        if (CanAttackAgain)
         {
             CanAttack = true;
             SetCanAttackAgain(false);

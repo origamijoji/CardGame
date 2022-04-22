@@ -5,20 +5,20 @@ using UnityEngine.EventSystems;
 
 public class DragAttack : MonoBehaviour, IPointerClickHandler
 {
-    //public static bool CurrentAttacker;
-    public static FieldCard CurrentAttacker { get; set; }
-    [SerializeField] private FieldCard thisCard;
+    public static Entity CurrentAttacker { get; set; }
+    [SerializeField] private Entity thisEntity;
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(CurrentAttacker != null && !thisCard.IsLocal)
+        if (CurrentAttacker != null && !thisEntity.IsLocal)
         {
-            CurrentAttacker.Attack(thisCard);
+            CurrentAttacker.Attack(thisEntity);
+            CurrentAttacker = null;
         }
-        else if(thisCard.IsLocal)
+        else if (thisEntity.IsLocal && CurrentAttacker != thisEntity && thisEntity.CanAttack)
         {
-            CurrentAttacker = thisCard;
+            CurrentAttacker = thisEntity;
         }
-        else if(CurrentAttacker == thisCard)
+        else if (CurrentAttacker == thisEntity)
         {
             CurrentAttacker = null;
         }

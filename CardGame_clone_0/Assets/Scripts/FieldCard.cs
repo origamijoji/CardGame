@@ -7,7 +7,6 @@ public class FieldCard : Entity
 {
     [field: SerializeField] public Minion BaseCard { get; private set; }
     [field: SerializeField] public int CardID { get; private set; }
-    [field: SerializeField] public bool IsLocal { get; set; }
 
     public void SetCard(int cardID)
     {

@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.098122105, g: 0.990566, b: 0.11172801, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -483,9 +483,9 @@ MonoBehaviour:
   IsQuick: 0
   IsDualWield: 0
   CanAttackAgain: 0
+  <IsLocal>k__BackingField: 0
   <BaseCard>k__BackingField: {fileID: 0}
   <CardID>k__BackingField: 0
-  <IsLocal>k__BackingField: 0
 --- !u!114 &8852865387037297729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9e097c412481647a0520ba9c584536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisCard: {fileID: 3320888883289212565}
+  thisEntity: {fileID: 3320888883289212565}
 --- !u!114 &255736907553928856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,6 +557,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07fac91b806e4447a44c4bb529f5767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _thisCard: {fileID: 3320888883289212565}
+  _cardPreview: {fileID: 1275818171996829353}
 --- !u!1 &2201854637406780876
 GameObject:
   m_ObjectHideFlags: 0

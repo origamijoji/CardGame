@@ -33,6 +33,7 @@ public class GameManager : NetworkBehaviour
     {
         var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
         newCard.GetComponent<FieldCard>().SetCard(cardID);
+        newCard.GetComponent<FieldCard>().CanAttack = true; // DEBUG **********
         Debug.Log(playerNum + " " + Player.LocalPlayer.PlayerNum);
         if (Player.LocalPlayer.PlayerNum == playerNum)
         {
@@ -43,6 +44,7 @@ public class GameManager : NetworkBehaviour
         {
             newCard.transform.SetParent(ReferenceManager.Instance.EnemyField.transform);
             newCard.GetComponent<FieldCard>().IsLocal = false;
+            Destroy(newCard.GetComponent<CardPreview>());
         }
 
         newCard.transform.localScale = newCardPrefab.transform.localScale;
@@ -53,10 +55,5 @@ public class GameManager : NetworkBehaviour
     {
         target.TakeDamage(attacker.Damage);
         attacker.TakeDamage(target.Damage);
-    }
-    [ClientRpc]
-    public void RPCDoDamage(Entity attacker, Entity target)
-    {
-
     }
 }
