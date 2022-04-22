@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Noah
   m_EditorClassIdentifier: 
   name: Noah
-  description: Kingpin. Monarch. Lethal. (He did it. He won the major.)
+  description: He did it. He won the major.
   art: {fileID: 21300000, guid: a328daa462aef0a4695b76bdc58c23d9, type: 3}
   manaCost: 3
   hasOnPlaceAbility: 1
   OnPlaceAbility: []
   health: 6
-  attack: 3
+  damage: 2
   acceptableTargets: 0100000003000000
   race: 00000000
   onDeathAbility: []

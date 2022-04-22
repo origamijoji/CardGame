@@ -3,34 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class GameManager : NetworkBehaviour {
+public class GameManager : NetworkBehaviour
+{
     static GameManager _instance;
-    public static GameManager Instance {
-        get {
-            if (_instance == null) {
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
                 _instance = FindObjectOfType<GameManager>();
             }
             return _instance;
         }
     }
+    [SyncVar] public int RoundNumber;
 
-
-    public void DrawCards(int amount) {
-        for(int cardsDrawn = 0; cardsDrawn < amount; cardsDrawn++) {
-            // draw a card
-        }
+    [Command(requiresAuthority = false)]
+    public void SpawnCard(int cardID, int playerNum)
+    {
+        Debug.Log("Card spawned");
+        var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
+        var newCard = Instantiate(newCardPrefab);
+        NetworkServer.Spawn(newCard);
+        SetCardStats(newCard, playerNum, cardID);
     }
-
-
-    public void PlayCard(int cardID) {
-        if (CardList.GetCard(cardID) is Minion minionCard) {
-            var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
-            var newCard = Instantiate(newCardPrefab);
-            NetworkServer.Spawn(newCard);
-            newCard.GetComponent<FieldCard>().SetCard(minionCard);
+    [ClientRpc]
+    public void SetCardStats(GameObject newCard, int playerNum, int cardID)
+    {
+        var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
+        newCard.GetComponent<FieldCard>().SetCard(cardID);
+        Debug.Log(playerNum + " " + Player.LocalPlayer.PlayerNum);
+        if (Player.LocalPlayer.PlayerNum == playerNum)
+        {
             newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
-            newCard.transform.localScale = newCardPrefab.transform.localScale;
         }
-    }
+        else
+        {
+            newCard.transform.SetParent(ReferenceManager.Instance.EnemyField.transform);
+        }
 
+        newCard.transform.localScale = newCardPrefab.transform.localScale;
+    }
 }

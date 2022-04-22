@@ -7,6 +7,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private Coroutine PlayCardRoutine;
     private int _siblingIndex;
     private GameObject _cardShadow;
+    [SerializeField] private HeldCard thisCard;
 
     public void OnBeginDrag(PointerEventData _EventData) {
         // Get Values.
@@ -29,7 +30,6 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
     }
 
-
     public void OnEndDrag(PointerEventData _EventData) {
         StopCoroutine(PlayCardRoutine);
         ReturnCardRoutine = StartCoroutine(ReturnCard());
@@ -38,12 +38,19 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     IEnumerator PlayCard() {
         while (true) {
             if (Input.GetMouseButtonDown(1)) {
-                Debug.Log("Card Played");
-                
-                ReferenceManager.Instance.Player.PlayCard(gameObject.GetComponent<HeldCard>().CardID);
-                Destroy(_cardShadow);
-                Destroy(gameObject);
-                yield break;
+
+                if (Player.LocalPlayer.Mana >= thisCard._cardInfo.manaCost)
+                {
+                    Debug.Log("Card Played");
+                    Player.LocalPlayer.PlayCard(thisCard.CardID, thisCard._cardInfo.manaCost);
+                    Destroy(_cardShadow);
+                    Destroy(gameObject);
+                    yield break;
+                }
+                else
+                {
+                    Debug.Log("Cannot afford");
+                }
             }
             yield return null;
         }
