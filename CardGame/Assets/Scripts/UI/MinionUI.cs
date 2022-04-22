@@ -9,16 +9,19 @@ public class MinionUI : MonoBehaviour
     [SerializeField] private FieldCard _thisCard;
     [SerializeField] private TextMeshProUGUI _healthUI;
     [SerializeField] private TextMeshProUGUI _damageUI;
-    [SerializeField] private RawImage _rawImage;
+    [SerializeField] private Image _image;
 
-    public void UpdateUI() {
+    public void UpdateUI()
+    {
         _healthUI.text = _thisCard.Health.ToString();
         _damageUI.text = _thisCard.Damage.ToString();
     }
-    public void SetImage() {
-        _rawImage.texture = _thisCard.BaseCard.art.texture;
+    public void SetImage()
+    {
+        _image.sprite = _thisCard.BaseCard.art;
     }
-    private void Update() {
+    private void Update()
+    {
         SetImage();
         UpdateUI();
     }

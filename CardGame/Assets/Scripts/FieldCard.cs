@@ -5,22 +5,28 @@ using Mirror;
 
 public class FieldCard : Entity
 {
-    [field: SerializeField] public ScriptableCard BaseCard { get; private set; }
+    [field: SerializeField] public Minion BaseCard { get; private set; }
     [field: SerializeField] public int CardID { get; private set; }
+    public Sprite art;
     // add reference to original card object
     // public reference to dragattack on same prefab
     // public reference to OnHoverDescribe component on same prefab
 
-    public void SetCard(Minion card, int cardID) {
+    public void SetCard(int cardID)
+    {
+        var card = CardList.GetMinion(cardID);
+        Debug.Log(card);
         BaseCard = card;
         CardID = cardID;
-        _damage = card.damage;
-        _health = card.health;
+        Damage = BaseCard.damage;
+        Health = BaseCard.health;
+        art = BaseCard.art;
     }
 
 
 
-    public override void OnDeath() {
+    public override void OnDeath()
+    {
         // if card has death ability, do it
         // otherwise, return
     }

@@ -18,4 +18,5 @@ public class ReferenceManager : MonoBehaviour {
     //[field: SerializeField] public GameObject EnemyCard { get; private set; }
     [field: SerializeField] public GameObject CardShadow { get; private set; }
     [field: SerializeField] public GameObject PlayerField { get; private set; }
+    [field: SerializeField] public GameObject EnemyField { get; private set; }
 }

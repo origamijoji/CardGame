@@ -1,7 +1,15 @@
 using System;
 
 [Serializable]
-public class CardInfo {
+public class MinionInfo
+{
     public int cardID;
-    public ScriptableCard scriptableCard;
+    public Minion minion;
+}
+
+[Serializable]
+public class SpellInfo
+{
+    public int cardID;
+    public Spell spell;
 }

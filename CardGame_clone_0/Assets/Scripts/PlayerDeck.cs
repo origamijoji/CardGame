@@ -9,7 +9,7 @@ public class PlayerDeck : NetworkBehaviour {
     [SerializeField] private GameObject _blankCard;
     [SerializeField] private Transform _playerHand;
 
-    public List<int> deckList = new List<int>();
+    public List<Card> deckList = new List<Card>();
 
     public override void OnStartClient() {
         if (!isLocalPlayer) { return; }
@@ -17,8 +17,6 @@ public class PlayerDeck : NetworkBehaviour {
         _blankCard = ReferenceManager.Instance.Card;
     }
 
-
-    [Command]
     public void DrawCard() {
         if (!isLocalPlayer) { return; }
         
@@ -28,6 +26,13 @@ public class PlayerDeck : NetworkBehaviour {
         newCard.transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
         //_hand.Add(newCardInfo);
         deckList.RemoveAt(0);
-        newCard.GetComponent<HeldCard>().DisplayInfo(newCardInfo);
+        newCard.GetComponent<HeldCard>().DisplayInfo(newCardInfo.ID, newCardInfo.type);
     }
+}
+
+[System.Serializable]
+public class Card
+{
+    public int ID;
+    public CardType type;
 }

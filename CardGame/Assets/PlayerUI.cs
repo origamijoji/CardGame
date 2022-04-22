@@ -4,16 +4,13 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _manaText;
-    [SerializeField] private TextMeshProUGUI _healthText;
+    [SerializeField] private TextMeshProUGUI _statsText;
 
     private void SetText()
     {
         if (Player.LocalPlayer != null)
         {
-            //Debug.Log(Player.LocalPlayer.netId);
-            //Debug.Log(Player.LocalPlayer.Health.ToString());
-            //_manaText.text = Player.LocalPlayer.Mana.ToString();
+            _statsText.text = "Health: " + Player.LocalPlayer.Health.ToString() +"\n" + "Mana: " + Player.LocalPlayer.Mana + "/" + Player.LocalPlayer.MaxMana;
         }
     }
 

@@ -3,69 +3,51 @@ public abstract class Entity : NetworkBehaviour
 {
     public bool CanAttack { get; set; }
 
-    [SyncVar] protected int _health;
-    public int Health
-    {
-        get => _health;
-        set { _health = Health; }
-    }
-    [SyncVar] protected int _damage;
-    public int Damage
-    {
-        get => _damage;
-        set => _damage = Damage;
-    }
-    [SyncVar] protected bool _isMonarch;
-    public bool Monarch
-    {
-        get => _isMonarch;
-        set => _isMonarch = Monarch;
-    }
-    [SyncVar] protected bool _isLethal;
-    public bool Lethal
-    {
-        get => _isLethal;
-        set => _isLethal = Lethal;
-    }
-    [SyncVar] protected bool _isKingpin;
-    public bool Kingpin
-    {
-        get => _isKingpin;
-        set => _isKingpin = Kingpin;
-    }
-    [SyncVar] protected bool _isFeint;
-    public bool Feint
-    {
-        get => _isFeint;
-        set => _isFeint = Feint;
-    }
-    [SyncVar] protected bool _isQuick;
-    public bool Quick
-    {
-        get => _isQuick;
-        set => _isQuick = Quick;
-    }
-    [SyncVar] protected bool _isDualWield;
-    public bool DualWield
-    {
-        get => _isDualWield;
-        set => _isDualWield = DualWield;
-    }
+    [SyncVar] public int Health;
+    [SyncVar] public int Damage;
 
+    [SyncVar] public bool IsMonarch;
+    [Command(requiresAuthority = false)] public void SetMonarch(bool value) => IsMonarch = value;
+    [SyncVar] public bool IsLethal;
+    [Command(requiresAuthority = false)] public void SetLethal(bool value) => IsLethal = value;
+    [SyncVar] public bool IsKingpin;
+    [Command(requiresAuthority = false)] public void SetKingpin(bool value) => IsKingpin = value;
+    [SyncVar] public bool IsFeint;
+    [Command(requiresAuthority = false)] public void SetFeint(bool value) => IsFeint = value;
+    [SyncVar] public bool IsQuick;
+    [Command(requiresAuthority = false)] public void SetQuick(bool value) => IsQuick = value;
+    [SyncVar] public bool IsDualWield;
+    [Command(requiresAuthority = false)] public void SetDualWield(bool value) => IsDualWield = value;
+    [SyncVar] public bool CanAttackAgain;
+    [Command(requiresAuthority = false)] public void SetCanAttackAgain(bool value) => CanAttackAgain = value;
+
+    [Command(requiresAuthority = false)]
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-        if (_health <= 0)
+        if(IsFeint)
         {
-            Destroy(gameObject);
+            SetFeint(false);
+            return;
+        }
+
+        Health -= damage;
+        if (Health <= 0)
+        {
             OnDeath();
+            Destroy(gameObject);
         }
     }
+
     public void Attack(Entity target)
     {
         var targetEntity = target.GetComponent<Entity>();
         targetEntity.TakeDamage(Damage);
         TakeDamage(target.Damage);
+        if(CanAttackAgain)
+        {
+            CanAttack = true;
+            SetCanAttackAgain(false);
+        }
     }
 
     public abstract void OnDeath();

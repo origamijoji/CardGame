@@ -4,30 +4,50 @@ using UnityEngine;
 public class CardList : MonoBehaviour
 {
     static CardList _instance;
-    public static CardList Instance {
-        get {
-            if (_instance == null) {
+    public static CardList Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
                 _instance = FindObjectOfType<CardList>();
             }
             return _instance;
         }
     }
 
-    public static ScriptableCard GetCard(int cardID) {
-        return cardList[cardID];
+    public static Minion GetMinion(int cardID)
+    {
+        return minionList[cardID];
+    }
+    public static Spell GetSpell(int cardID)
+    {
+        return spellList[cardID];
+    }
+    public static void AddSpell(int cardID, Spell spell)
+    {
+        spellList.Add(cardID, spell);
+    }
+    public static void AddMinion(int cardID, Minion minion)
+    {
+        minionList.Add(cardID, minion);
     }
 
-    public static void AddCard(int cardID, ScriptableCard card) {
-        cardList.Add(cardID, card);
-    }
+    public List<MinionInfo> minions = new List<MinionInfo>();
+    public List<SpellInfo> spells = new List<SpellInfo>();
 
-    public List<CardInfo> cards = new List<CardInfo>();
+    public static Dictionary<int, Minion> minionList = new Dictionary<int, Minion>();
+    public static Dictionary<int, Spell> spellList = new Dictionary<int, Spell>();
 
-    public static Dictionary<int, ScriptableCard> cardList = new Dictionary<int, ScriptableCard>();
-
-    private void Awake() {
-        foreach(CardInfo cardInfo in cards) {
-            AddCard(cardInfo.cardID, cardInfo.scriptableCard);
+    private void Awake()
+    {
+        foreach (MinionInfo cardInfo in minions)
+        {
+            AddMinion(cardInfo.cardID, cardInfo.minion);
+        }
+        foreach (SpellInfo cardInfo in spells)
+        {
+            AddSpell(cardInfo.cardID, cardInfo.spell);
         }
     }
 }
