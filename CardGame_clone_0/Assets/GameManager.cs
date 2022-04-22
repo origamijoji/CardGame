@@ -37,12 +37,26 @@ public class GameManager : NetworkBehaviour
         if (Player.LocalPlayer.PlayerNum == playerNum)
         {
             newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
+            newCard.GetComponent<FieldCard>().IsLocal = true;
         }
         else
         {
             newCard.transform.SetParent(ReferenceManager.Instance.EnemyField.transform);
+            newCard.GetComponent<FieldCard>().IsLocal = false;
         }
 
         newCard.transform.localScale = newCardPrefab.transform.localScale;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdAttackEntity(Entity attacker, Entity target)
+    {
+        target.TakeDamage(attacker.Damage);
+        attacker.TakeDamage(target.Damage);
+    }
+    [ClientRpc]
+    public void RPCDoDamage(Entity attacker, Entity target)
+    {
+
     }
 }

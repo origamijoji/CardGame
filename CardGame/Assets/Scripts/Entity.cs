@@ -1,4 +1,6 @@
 using Mirror;
+using UnityEngine;
+
 public abstract class Entity : NetworkBehaviour
 {
     public bool CanAttack { get; set; }
@@ -29,20 +31,17 @@ public abstract class Entity : NetworkBehaviour
             SetFeint(false);
             return;
         }
-
         Health -= damage;
+        Debug.Log($"Taken {damage} damage");
         if (Health <= 0)
         {
             OnDeath();
-            Destroy(gameObject);
         }
     }
 
     public void Attack(Entity target)
     {
-        var targetEntity = target.GetComponent<Entity>();
-        targetEntity.TakeDamage(Damage);
-        TakeDamage(target.Damage);
+        GameManager.Instance.CmdAttackEntity(this, target);
         if(CanAttackAgain)
         {
             CanAttack = true;

@@ -15,7 +15,8 @@ public class Player : Entity {
     }
     [SyncVar(hook = nameof(EditOpponentCards))] public int CardsHeld;
     [SyncVar] public int Mana;
-    [Command] private void SetMana(int value) => Mana = value;
+    [Command] private void RemoveMana(int value) => Mana -= value;
+    [Command] private void AddMana(int value) => Mana += value;
     [SyncVar] public int CurrentMaxMana;
     private int _totalMaxMana = 10;
 
@@ -33,7 +34,7 @@ public class Player : Entity {
     [Command]
     public void CmdResetValues()
     {
-        Mana = 0;
+        Mana = 100;
         CurrentMaxMana = 1;
         Health = 30;
     }
@@ -45,7 +46,7 @@ public class Player : Entity {
     public void PlayCard(int cardID, int cost)
     {
         GameManager.Instance.SpawnCard(cardID, PlayerNum);
-        SetMana(Mana - cost);
+        RemoveMana(cost);
     }
 
     private void Update() {

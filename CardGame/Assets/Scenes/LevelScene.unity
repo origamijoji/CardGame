@@ -786,11 +786,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Table>k__BackingField: {fileID: 1534146863}
-  <PlayerHand>k__BackingField: {fileID: 4711589371226651110}
   <Card>k__BackingField: {fileID: 8392259107605691607, guid: 8987231dcc31d214b911547b25e68ed7, type: 3}
   <CardShadow>k__BackingField: {fileID: 1229221714983144057, guid: eae1721587550194b99963cd6217a837, type: 3}
   <PlayerField>k__BackingField: {fileID: 4711589369539223004}
   <EnemyField>k__BackingField: {fileID: 923599020}
+  <PlayerHand>k__BackingField: {fileID: 4711589371226651110}
+  <EnemyHand>k__BackingField: {fileID: 1000783718}
+  <CardPreviews>k__BackingField: {fileID: 1066415062}
 --- !u!4 &903786139
 Transform:
   m_ObjectHideFlags: 0
@@ -1097,6 +1099,41 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!1 &1066415062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066415063}
+  m_Layer: 5
+  m_Name: Card Previews
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1066415063
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066415062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1534146867}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1094455005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1436,7 +1473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -5.340515, y: 6.80896}
+  m_AnchoredPosition: {x: -5.340576, y: 27}
   m_SizeDelta: {x: 97.31897, y: 24.382004}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1392032372
@@ -1639,6 +1676,7 @@ RectTransform:
   - {fileID: 4711589369539223003}
   - {fileID: 4711589371226651109}
   - {fileID: 1392032371}
+  - {fileID: 1066415063}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
