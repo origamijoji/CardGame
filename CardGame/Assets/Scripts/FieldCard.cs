@@ -16,6 +16,7 @@ public class FieldCard : Entity
         CardID = cardID;
         Damage = BaseCard.damage;
         Health = BaseCard.health;
+        gameObject.GetComponent<MinionUI>()?.SetImage();
     }
 
 

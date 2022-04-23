@@ -5,7 +5,7 @@ public abstract class Entity : NetworkBehaviour
 {
     public bool CanAttack { get; set; }
 
-    [SyncVar] public int Health;
+    [SyncVar(hook = nameof(UpdateUIOnSync))] public int Health;
     [SyncVar] public int Damage;
 
     [SyncVar] public bool IsMonarch;
@@ -23,6 +23,13 @@ public abstract class Entity : NetworkBehaviour
     [SyncVar] public bool CanAttackAgain;
     [Command(requiresAuthority = false)] public void SetCanAttackAgain(bool value) => CanAttackAgain = value;
     [field: SerializeField] public bool IsLocal { get; set; }
+
+    // Whenever the health of an entity changes, update all EntityObserver UI
+    private void UpdateUIOnSync(int oldVar, int newVar)
+    {
+        EntitySubject.Notify();
+    }
+
 
     [Command(requiresAuthority = false)]
     public void TakeDamage(int damage)

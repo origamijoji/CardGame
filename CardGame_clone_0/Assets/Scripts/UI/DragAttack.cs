@@ -23,5 +23,6 @@ public class DragAttack : MonoBehaviour, IPointerClickHandler
         {
             CurrentAttacker = null;
         }
+        EntitySubject.Notify();
     }
 }

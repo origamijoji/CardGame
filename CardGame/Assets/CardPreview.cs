@@ -3,28 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardPreview : MonoBehaviour
+public class CardPreview : EntityObserver
 {
     [SerializeField] private FieldCard _thisCard;
     [SerializeField] private Image _cardPreview;
-    void Update()
-    {
-        if(_thisCard.IsLocal == false) { return; }
-        //if not current turn: return
 
-        if(_thisCard == DragAttack.CurrentAttacker)
-        {
-            SetMagenta();
-        }
-        else if(_thisCard.CanAttack)
-        {
-            SetGreen();
-        }
-        else
-        {
-            SetTransparent();
-        }
-    }
 
     public void SetGreen()
     {
@@ -40,4 +23,24 @@ public class CardPreview : MonoBehaviour
     {
         _cardPreview.color = Color.clear;
     }
+
+    public override void OnNotification()
+    {
+        if (_thisCard.IsLocal == false) { return; }
+        //if not current turn: return
+
+        if (_thisCard == DragAttack.CurrentAttacker)
+        {
+            SetMagenta();
+        }
+        else if (_thisCard.CanAttack)
+        {
+            SetGreen();
+        }
+        else
+        {
+            SetTransparent();
+        }
+    }
+
 }

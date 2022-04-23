@@ -34,7 +34,6 @@ public class GameManager : NetworkBehaviour
         var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
         newCard.GetComponent<FieldCard>().SetCard(cardID);
         newCard.GetComponent<FieldCard>().CanAttack = true; // DEBUG **********
-        Debug.Log(playerNum + " " + Player.LocalPlayer.PlayerNum);
         if (Player.LocalPlayer.PlayerNum == playerNum)
         {
             newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
@@ -48,6 +47,7 @@ public class GameManager : NetworkBehaviour
         }
 
         newCard.transform.localScale = newCardPrefab.transform.localScale;
+        EntitySubject.Notify();
     }
 
     [Command(requiresAuthority = false)]

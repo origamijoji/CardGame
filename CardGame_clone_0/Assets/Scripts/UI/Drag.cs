@@ -41,7 +41,6 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
                 if (Player.LocalPlayer.Mana >= thisCard._cardInfo.manaCost)
                 {
-                    Debug.Log("Card Played");
                     Player.LocalPlayer.PlayCard(thisCard.CardID, thisCard._cardInfo.manaCost);
                     Destroy(_cardShadow);
                     Destroy(gameObject);
