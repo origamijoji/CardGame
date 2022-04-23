@@ -1,4 +1,6 @@
 using Mirror;
+using UnityEngine;
+
 public abstract class Entity : NetworkBehaviour
 {
     public bool CanAttack { get; set; }
@@ -20,30 +22,29 @@ public abstract class Entity : NetworkBehaviour
     [Command(requiresAuthority = false)] public void SetDualWield(bool value) => IsDualWield = value;
     [SyncVar] public bool CanAttackAgain;
     [Command(requiresAuthority = false)] public void SetCanAttackAgain(bool value) => CanAttackAgain = value;
+    [field: SerializeField] public bool IsLocal { get; set; }
 
     [Command(requiresAuthority = false)]
     public void TakeDamage(int damage)
     {
-        if(IsFeint)
+        if (IsFeint)
         {
             SetFeint(false);
             return;
         }
-
         Health -= damage;
+        Debug.Log($"Taken {damage} damage");
         if (Health <= 0)
         {
             OnDeath();
-            Destroy(gameObject);
         }
     }
 
     public void Attack(Entity target)
     {
-        var targetEntity = target.GetComponent<Entity>();
-        targetEntity.TakeDamage(Damage);
-        TakeDamage(target.Damage);
-        if(CanAttackAgain)
+        GameManager.Instance.CmdAttackEntity(this, target);
+        CanAttack = false;
+        if (CanAttackAgain)
         {
             CanAttack = true;
             SetCanAttackAgain(false);

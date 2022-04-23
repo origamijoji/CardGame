@@ -7,10 +7,6 @@ public class FieldCard : Entity
 {
     [field: SerializeField] public Minion BaseCard { get; private set; }
     [field: SerializeField] public int CardID { get; private set; }
-    public Sprite art;
-    // add reference to original card object
-    // public reference to dragattack on same prefab
-    // public reference to OnHoverDescribe component on same prefab
 
     public void SetCard(int cardID)
     {
@@ -20,7 +16,6 @@ public class FieldCard : Entity
         CardID = cardID;
         Damage = BaseCard.damage;
         Health = BaseCard.health;
-        art = BaseCard.art;
     }
 
 
@@ -29,6 +24,9 @@ public class FieldCard : Entity
     {
         // if card has death ability, do it
         // otherwise, return
+
+        Destroy(gameObject.GetComponent<OnHoverDefine>().CardPreview);
+        Destroy(gameObject);
     }
 
 }

@@ -4,14 +4,17 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
+    [SerializeField] private Player thisPlayer;
     [SerializeField] private TextMeshProUGUI _statsText;
+    [SerializeField] private Image _bgImage;
 
     private void SetText()
     {
-        if (Player.LocalPlayer != null)
-        {
-            _statsText.text = "Health: " + Player.LocalPlayer.Health.ToString() +"\n" + "Mana: " + Player.LocalPlayer.Mana + "/" + Player.LocalPlayer.MaxMana;
-        }
+        _statsText.text = "Health: " + thisPlayer.Health.ToString() + "\n" + "Mana: " + thisPlayer.Mana + "/" + thisPlayer.MaxMana;
+        if (Player.LocalPlayer == thisPlayer) 
+            _bgImage.color = Color.green;
+        else 
+            _bgImage.color = Color.green;
     }
 
     private void Update()

@@ -10,4 +10,11 @@ public class CCGNetworkManager : NetworkManager
         NetworkServer.Spawn(gameManager);
     }
 
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    {
+        var spawnPoint = ReferenceManager.Instance.OpponentSpawn;
+        var newPlayer = Instantiate(singleton.playerPrefab, spawnPoint);
+        NetworkServer.AddPlayerForConnection(conn, newPlayer);
+    }
+
 }
