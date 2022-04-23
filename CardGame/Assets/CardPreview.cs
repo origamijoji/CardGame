@@ -14,15 +14,30 @@ public class CardPreview : MonoBehaviour
 
         if(_thisCard == DragAttack.CurrentAttacker)
         {
-            _cardPreview.color = Color.magenta;
+            SetMagenta();
         }
         else if(_thisCard.CanAttack)
         {
-            _cardPreview.color = Color.green;
+            SetGreen();
         }
         else
         {
-            _cardPreview.color = Color.clear;
+            SetTransparent();
         }
+    }
+
+    public void SetGreen()
+    {
+        _cardPreview.color = Color.green;
+    }
+
+    public void SetMagenta()
+    {
+        _cardPreview.color = Color.magenta;
+    }
+
+    public void SetTransparent()
+    {
+        _cardPreview.color = Color.clear;
     }
 }

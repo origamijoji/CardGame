@@ -17,6 +17,7 @@ public class DragAttack : MonoBehaviour, IPointerClickHandler
         else if (thisEntity.IsLocal && CurrentAttacker != thisEntity && thisEntity.CanAttack)
         {
             CurrentAttacker = thisEntity;
+            
         }
         else if (CurrentAttacker == thisEntity)
         {
