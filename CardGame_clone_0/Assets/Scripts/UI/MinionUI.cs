@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MinionUI : MonoBehaviour
+public class MinionUI : EntityObserver
 {
     [SerializeField] private FieldCard _thisCard;
     [SerializeField] private TextMeshProUGUI _healthUI;
@@ -20,9 +20,9 @@ public class MinionUI : MonoBehaviour
     {
         _image.sprite = _thisCard.BaseCard.art;
     }
-    private void Update()
+
+    public override void OnNotification()
     {
-        SetImage();
         UpdateUI();
     }
 
