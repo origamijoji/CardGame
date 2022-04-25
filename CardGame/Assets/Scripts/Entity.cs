@@ -4,7 +4,9 @@ using UnityEngine;
 public abstract class Entity : NetworkBehaviour
 {
     public bool CanAttack { get; set; }
+    public Targets ThisTarget { get; set; }
 
+    [SyncVar] public int MaxHealth;
     [SyncVar(hook = nameof(UpdateUIOnSync))] public int Health;
     [SyncVar] public int Damage;
 
@@ -22,13 +24,36 @@ public abstract class Entity : NetworkBehaviour
     [Command(requiresAuthority = false)] public void SetDualWield(bool value) => IsDualWield = value;
     [SyncVar] public bool CanAttackAgain;
     [Command(requiresAuthority = false)] public void SetCanAttackAgain(bool value) => CanAttackAgain = value;
-    [field: SerializeField] public bool IsLocal { get; set; }
 
     // Whenever the health of an entity changes, update all EntityObserver UI
     private void UpdateUIOnSync(int oldVar, int newVar)
     {
         EntitySubject.Notify();
     }
+
+    [Command(requiresAuthority = false)]
+    public void HealHealth(int amount)
+    {
+        if(amount + Health <= MaxHealth)
+        {
+            Health += amount;
+        }
+        else
+        {
+            Health = MaxHealth;
+        }
+
+    }
+
+    public void BuffAttack()
+    {
+
+    }
+    public void BuffHealth()
+    {
+
+    }
+
 
 
     [Command(requiresAuthority = false)]

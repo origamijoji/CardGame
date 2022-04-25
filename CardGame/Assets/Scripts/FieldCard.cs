@@ -15,10 +15,10 @@ public class FieldCard : Entity
         BaseCard = card;
         CardID = cardID;
         Damage = BaseCard.damage;
+        MaxHealth = BaseCard.health;
         Health = BaseCard.health;
         gameObject.GetComponent<MinionUI>()?.SetImage();
     }
-
 
 
     public override void OnDeath()

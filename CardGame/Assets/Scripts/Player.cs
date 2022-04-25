@@ -6,6 +6,7 @@ using Mirror;
 public class Player : Entity
 {
     [SerializeField] private PlayerDeck _deck;
+    public PlayerDeck GetDeck() => _deck;
     public static Player LocalPlayer { get; private set; }
     [field: SerializeField] public int PlayerNum { get; private set; }
     public GameObject enemyPlayer;
@@ -31,7 +32,6 @@ public class Player : Entity
     {
         LocalPlayer = this;
         PlayerNum = (int)netId;
-        IsLocal = true;
         gameObject.transform.SetParent(ReferenceManager.Instance.PlayerSpawn);
         gameObject.transform.localPosition = Vector3.zero;
         CmdResetValues();
@@ -42,6 +42,7 @@ public class Player : Entity
     {
         Mana = 100;
         CurrentMaxMana = 1;
+        MaxHealth = 30;
         Health = 30;
     }
 
@@ -49,11 +50,62 @@ public class Player : Entity
     {
     }
 
-    public void PlayCard(int cardID, int cost)
+    public void PlayMinion(int cardID, int cost)
     {
+        DoEffect(cardID, CardType.Minion);
         GameManager.Instance.SpawnCard(cardID, PlayerNum);
         RemoveMana(cost);
     }
+    public void PlaySpell(int cardID, int cost)
+    {
+        DoEffect(cardID, CardType.Spell);
+    }
+
+
+    public void DoEffect(int CardID, CardType type)
+    {
+        List<Ability> abilityList;
+        List<Entity> targets;
+
+        if (type == CardType.Minion)
+        {
+            var thisMinion = CardList.GetMinion(CardID);
+            if (!thisMinion.hasOnPlaceAbility) { return; }
+            abilityList = thisMinion.OnPlaceAbility;
+        }
+        else
+        {
+            abilityList = CardList.GetSpell(CardID).OnPlaceAbility;
+        }
+
+
+        foreach (Ability ability in abilityList)
+        {
+            Debug.Log("CASTING ABILITY");
+            if (ability.scriptableAbility is HealAbility heal)
+            {
+                foreach (Targets target in heal.targets)
+                {
+                    if (target == Targets.PlayerMinions)
+                    {
+                        foreach (Transform child in ReferenceManager.Instance.PlayerField.transform)
+                        {
+                            child.GetComponent<FieldCard>().HealHealth(heal.heal);
+                        }
+                    }
+                }
+            }
+            else if (ability.scriptableAbility is BuffAbility buff)
+            {
+
+            }
+            else if (ability.scriptableAbility is DrawAbility draw)
+            {
+                _deck.DrawCard(draw.draw);
+            }
+        }
+    }
+
 
     private void Update()
     {

@@ -26,7 +26,9 @@ public class GameManager : NetworkBehaviour
         var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
         var newCard = Instantiate(newCardPrefab);
         NetworkServer.Spawn(newCard);
+
         SetCardStats(newCard, playerNum, cardID);
+
     }
     [ClientRpc]
     public void SetCardStats(GameObject newCard, int playerNum, int cardID)
@@ -37,16 +39,17 @@ public class GameManager : NetworkBehaviour
         if (Player.LocalPlayer.PlayerNum == playerNum)
         {
             newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
-            newCard.GetComponent<FieldCard>().IsLocal = true;
+            newCard.GetComponent<FieldCard>().ThisTarget = Targets.PlayerMinions;
         }
         else
         {
             newCard.transform.SetParent(ReferenceManager.Instance.EnemyField.transform);
-            newCard.GetComponent<FieldCard>().IsLocal = false;
+            newCard.GetComponent<FieldCard>().ThisTarget = Targets.EnemyMinions;
             Destroy(newCard.GetComponent<CardPreview>());
         }
 
         newCard.transform.localScale = newCardPrefab.transform.localScale;
+
         EntitySubject.Notify();
     }
 

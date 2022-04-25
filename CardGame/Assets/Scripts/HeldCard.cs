@@ -18,7 +18,7 @@ public class HeldCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _cost;
 
     public void DisplayInfo(int cardID, CardType type) {
-        if(type == CardType.Minion)
+        if (type == CardType.Minion)
         {
             var minionInfo = CardList.GetMinion(cardID);
             _cardInfo = minionInfo;
@@ -29,7 +29,10 @@ public class HeldCard : MonoBehaviour
         }
         else
         {
-
+            var spellInfo = CardList.GetSpell(cardID);
+            _cardInfo = spellInfo;
+            CardID = cardID;
+            CardType = type;
         }
         
         _art.sprite = _cardInfo.art;

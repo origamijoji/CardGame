@@ -19,17 +19,19 @@ public class PlayerDeck : NetworkBehaviour
         _blankCard = ReferenceManager.Instance.Card;
     }
 
-    public void DrawCard()
+    public void DrawCard(int amount = 1)
     {
         if (!isLocalPlayer) { return; }
-
-        var newCardInfo = deckList[0];
-        var newCard = Instantiate(_blankCard);
-        newCard.transform.SetParent(_playerHand);
-        newCard.transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
-        //_hand.Add(newCardInfo);
-        deckList.RemoveAt(0);
-        newCard.GetComponent<HeldCard>().DisplayInfo(newCardInfo.ID, newCardInfo.type);
+        for (int i = amount; i > 0; i--)
+        {
+            var newCardInfo = deckList[0];
+            var newCard = Instantiate(_blankCard);
+            newCard.transform.SetParent(_playerHand);
+            newCard.transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
+            //_hand.Add(newCardInfo);
+            deckList.RemoveAt(0);
+            newCard.GetComponent<HeldCard>().DisplayInfo(newCardInfo.ID, newCardInfo.type);
+        }
     }
 }
 
