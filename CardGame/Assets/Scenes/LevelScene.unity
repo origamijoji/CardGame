@@ -1290,6 +1290,8 @@ MonoBehaviour:
     minion: {fileID: 11400000, guid: 185a376931b7148468c767e272fba94e, type: 2}
   - cardID: 2
     minion: {fileID: 11400000, guid: 1f1061a5048dfbf42a2799db14d02113, type: 2}
+  - cardID: 3
+    minion: {fileID: 11400000, guid: 9d0df35f577499441a45a6c3030bad99, type: 2}
   spells:
   - cardID: 0
     spell: {fileID: 11400000, guid: df30adf301beb4e4fbde5ee4151cf067, type: 2}
