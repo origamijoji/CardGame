@@ -1346,7 +1346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -5.340576, y: 27}
+  m_AnchoredPosition: {x: -5.340576, y: 250}
   m_SizeDelta: {x: 97.31897, y: 24.382004}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1392032372
@@ -1361,7 +1361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7418b6c8444f3a440aec968b2070e293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisButton: {fileID: 0}
+  _button: {fileID: 1392032373}
+  _buttonImage: {fileID: 1392032374}
+  _buttonText: {fileID: 831944580}
 --- !u!114 &1392032373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,7 +1407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1392032374}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1392032372}
+        m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
+        m_MethodName: OnClickEndTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1392032374
 MonoBehaviour:
   m_ObjectHideFlags: 0

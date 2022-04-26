@@ -10,13 +10,14 @@ public class Player : Entity
     public static Player LocalPlayer { get; private set; }
     [field: SerializeField] public int PlayerNum { get; private set; }
     public GameObject enemyPlayer;
-
+    [field: SerializeField] public bool IsTurn { get; set; }
 
     public int MaxMana
     {
         get { return Mathf.Min(CurrentMaxMana, _totalMaxMana); }
     }
-    [SyncVar(hook = nameof(EditOpponentCards))] public int CardsHeld;
+    [SyncVar] public int CardsHeld;
+
     [SyncVar] public int Mana;
     [Command] private void RemoveMana(int value) => Mana -= value;
     [Command] private void AddMana(int value) => Mana += value;
@@ -37,24 +38,32 @@ public class Player : Entity
         CmdResetValues();
     }
 
-    [Command]
     public void CmdResetValues()
     {
-        Mana = 100;
+        Mana = 1;
         CurrentMaxMana = 1;
         MaxHealth = 30;
         Health = 30;
+        StartCoroutine(DrawStartCards(3));
     }
 
-    public void EditOpponentCards(int oldValue, int newValue)
+    IEnumerator DrawStartCards(int amount)
     {
+        for (int i = amount; i > 0; i--)
+        {
+            yield return new WaitForSeconds(0.25f);
+            _deck.DrawCard();
+        }
     }
 
     public void PlayMinion(int cardID, int cost)
     {
-        DoEffect(cardID, CardType.Minion);
-        GameManager.Instance.SpawnCard(cardID, PlayerNum);
-        RemoveMana(cost);
+        if (IsTurn)
+        {
+            DoEffect(cardID, CardType.Minion);
+            GameManager.Instance.SpawnCard(cardID, PlayerNum);
+            RemoveMana(cost);
+        }
     }
     public void PlaySpell(int cardID, int cost)
     {
@@ -77,19 +86,19 @@ public class Player : Entity
         {
             abilityList = CardList.GetSpell(CardID).OnPlaceAbility;
         }
-        
+
 
         foreach (Ability ability in abilityList)
         {
-            foreach(Targets target in ability.targets)
+            foreach (Targets target in ability.targets)
             {
-                if(target == Targets.EnemyChampion)
+                if (target == Targets.EnemyChampion)
                 {
                     //targetsList.Add(opponent)
                 }
-                if(target == Targets.EnemyMinions)
+                if (target == Targets.EnemyMinions)
                 {
-                    foreach(Transform child in ReferenceManager.Instance.EnemyField.transform)
+                    foreach (Transform child in ReferenceManager.Instance.EnemyField.transform)
                     {
                         targetsList.Add(child.GetComponent<Entity>());
                     }
@@ -102,8 +111,7 @@ public class Player : Entity
                     }
                 }
             }
-            
-            Debug.Log("CASTING ABILITY");
+
             if (ability.scriptableAbility is HealAbility heal)
             {
                 foreach (Entity entity in targetsList)
@@ -113,7 +121,7 @@ public class Player : Entity
             }
             else if (ability.scriptableAbility is BuffAbility buff)
             {
-                foreach(Entity entity in targetsList)
+                foreach (Entity entity in targetsList)
                 {
                     entity.BuffDamage(buff.strength);
                     entity.BuffHealth(buff.health);
@@ -134,6 +142,23 @@ public class Player : Entity
         {
             _deck.DrawCard();
         }
+    }
+
+    public void StartRound()
+    {
+        if (CurrentMaxMana < _totalMaxMana)
+        {
+            CurrentMaxMana++;
+        }
+        Mana = CurrentMaxMana;
+        _deck.DrawCard();
+        Invoke("UpdateUI", 0.05f);
+    }
+
+    private void UpdateUI() => EntitySubject.Notify();
+    public void EndRound()
+    {
+        EntitySubject.Notify();
     }
 
 

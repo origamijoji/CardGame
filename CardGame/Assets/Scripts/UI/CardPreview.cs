@@ -27,9 +27,12 @@ public class CardPreview : EntityObserver
     public override void OnNotification()
     {
         if (_thisCard.ThisTarget == Targets.EnemyMinions) { return; }
-        //if not current turn: return
 
-        if (_thisCard == DragAttack.CurrentAttacker)
+        if (!Player.LocalPlayer.IsTurn)
+        {
+            SetTransparent();
+        }
+        else if (_thisCard == DragAttack.CurrentAttacker)
         {
             SetMagenta();
         }

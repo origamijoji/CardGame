@@ -9,6 +9,7 @@ public class DragAttack : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Entity thisEntity;
     public void OnPointerClick(PointerEventData eventData)
     {
+        if(!Player.LocalPlayer.IsTurn) { return; }
         if (CurrentAttacker != null &&
             ((thisEntity.ThisTarget == Targets.EnemyMinions) || (thisEntity.ThisTarget == Targets.EnemyChampion)))
         {
@@ -18,7 +19,6 @@ public class DragAttack : MonoBehaviour, IPointerClickHandler
         else if (thisEntity.ThisTarget == Targets.PlayerMinions && CurrentAttacker != thisEntity && thisEntity.CanAttack)
         {
             CurrentAttacker = thisEntity;
-
         }
         else if (CurrentAttacker == thisEntity)
         {

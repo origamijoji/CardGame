@@ -2,15 +2,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+{
     private Coroutine ReturnCardRoutine;
     private Coroutine PlayCardRoutine;
     private int _siblingIndex;
     private GameObject _cardShadow;
     [SerializeField] private HeldCard thisCard;
 
-    public void OnBeginDrag(PointerEventData _EventData) {
+    public void OnBeginDrag(PointerEventData _EventData)
+    {
         // Get Values.
+        if(!Player.LocalPlayer.IsTurn) { return; }
         if (_cardShadow != null) { Destroy(_cardShadow); }
         if (ReturnCardRoutine != null) { StopCoroutine(ReturnCardRoutine); }
 
@@ -25,19 +28,26 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         PlayCardRoutine = StartCoroutine(PlayCard());
 
     }
-    public void OnDrag(PointerEventData _EventData) {
+    public void OnDrag(PointerEventData _EventData)
+    {
+        if (!Player.LocalPlayer.IsTurn) { return; }
         gameObject.transform.position = Input.mousePosition;
         transform.localScale = ReferenceManager.Instance.Card.transform.localScale;
     }
 
-    public void OnEndDrag(PointerEventData _EventData) {
+    public void OnEndDrag(PointerEventData _EventData)
+    {
+        if (!Player.LocalPlayer.IsTurn) { return; }
         StopCoroutine(PlayCardRoutine);
         ReturnCardRoutine = StartCoroutine(ReturnCard());
     }
 
-    IEnumerator PlayCard() {
-        while (true) {
-            if (Input.GetMouseButtonDown(1)) {
+    IEnumerator PlayCard()
+    {
+        while (true)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
 
                 if (Player.LocalPlayer.Mana >= thisCard._cardInfo.manaCost)
                 {
@@ -64,9 +74,11 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         }
     }
 
-    IEnumerator ReturnCard() {
+    IEnumerator ReturnCard()
+    {
         // Lerp card back to shadow.
-        while (Vector2.Distance(transform.position, _cardShadow.transform.position) > 1) {
+        while (Vector2.Distance(transform.position, _cardShadow.transform.position) > 1)
+        {
             transform.position = Vector2.Lerp(transform.position, _cardShadow.transform.position, Time.deltaTime * 14);
             yield return null;
         }
