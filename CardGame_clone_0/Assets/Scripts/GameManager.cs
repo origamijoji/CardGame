@@ -104,4 +104,11 @@ public class GameManager : NetworkBehaviour
         IsFirstHalf = true;
         RoundNumber = 1;
     }
+
+    [ClientRpc]
+    public void ExchangePlayerInfo(NetworkIdentity identity)
+    {
+        Player.LocalPlayer.GetEnemyInfo(identity);
+        Player.EnemyPlayer.ThisTarget = Targets.EnemyChampion;
+    }
 }

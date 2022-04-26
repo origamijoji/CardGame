@@ -10,10 +10,12 @@ public class DragAttack : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if(!Player.LocalPlayer.IsTurn) { return; }
+        Debug.Log(thisEntity);
         if (CurrentAttacker != null &&
             ((thisEntity.ThisTarget == Targets.EnemyMinions) || (thisEntity.ThisTarget == Targets.EnemyChampion)))
         {
             CurrentAttacker.Attack(thisEntity);
+
             CurrentAttacker = null;
         }
         else if (thisEntity.ThisTarget == Targets.PlayerMinions && CurrentAttacker != thisEntity && thisEntity.CanAttack)

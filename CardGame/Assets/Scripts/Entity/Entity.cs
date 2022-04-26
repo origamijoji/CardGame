@@ -3,7 +3,8 @@ using UnityEngine;
 
 public abstract class Entity : NetworkBehaviour
 {
-    public bool CanAttack { get; set; }
+    [SyncVar] public bool CanAttack;
+    [Command(requiresAuthority = false)] public void SetCanAttack(bool value) => CanAttack = value;
     public Targets ThisTarget { get; set; }
 
     [SyncVar] public int MaxHealth;
@@ -29,6 +30,15 @@ public abstract class Entity : NetworkBehaviour
     private void UpdateUIOnSync(int oldVar, int newVar)
     {
         EntitySubject.Notify();
+    }
+
+    public void ResetEntity()
+    {
+        SetCanAttack(true);
+        if(IsDualWield)
+        {
+            SetCanAttackAgain(true);
+        }
     }
 
     [Command(requiresAuthority = false)]
@@ -79,10 +89,10 @@ public abstract class Entity : NetworkBehaviour
     public void Attack(Entity target)
     {
         GameManager.Instance.CmdAttackEntity(this, target);
-        CanAttack = false;
+        SetCanAttack(false);
         if (CanAttackAgain)
         {
-            CanAttack = true;
+            SetCanAttack(true);
             SetCanAttackAgain(false);
         }
     }

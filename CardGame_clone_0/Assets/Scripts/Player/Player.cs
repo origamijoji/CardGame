@@ -8,6 +8,7 @@ public class Player : Entity
     [SerializeField] private PlayerDeck _deck;
     public PlayerDeck GetDeck() => _deck;
     public static Player LocalPlayer { get; private set; }
+    public static Player EnemyPlayer { get; private set; }
     [field: SerializeField] public int PlayerNum { get; private set; }
     public GameObject enemyPlayer;
     [field: SerializeField] public bool IsTurn { get; set; }
@@ -35,16 +36,18 @@ public class Player : Entity
         PlayerNum = (int)netId;
         gameObject.transform.SetParent(ReferenceManager.Instance.PlayerSpawn);
         gameObject.transform.localPosition = Vector3.zero;
+        gameObject.transform.localScale = NetworkManager.singleton.playerPrefab.transform.localScale;
         CmdResetValues();
+        StartCoroutine(DrawStartCards(3));
     }
 
+    [Command]
     public void CmdResetValues()
     {
         Mana = 1;
         CurrentMaxMana = 1;
         MaxHealth = 30;
         Health = 30;
-        StartCoroutine(DrawStartCards(3));
     }
 
     IEnumerator DrawStartCards(int amount)
@@ -135,7 +138,6 @@ public class Player : Entity
         EntitySubject.Notify();
     }
 
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
@@ -144,8 +146,14 @@ public class Player : Entity
         }
     }
 
+    [Command]
     public void StartRound()
     {
+        foreach(Transform child in ReferenceManager.Instance.PlayerField.transform)
+        {
+            child.GetComponent<FieldCard>().ResetEntity();
+        }
+
         if (CurrentMaxMana < _totalMaxMana)
         {
             CurrentMaxMana++;
@@ -161,10 +169,16 @@ public class Player : Entity
         EntitySubject.Notify();
     }
 
+    
 
     [Command]
     public void DecreaseHealth(int health)
     {
         Health -= health;
+    }
+
+    public void GetEnemyInfo(NetworkIdentity identity)
+    {
+        EnemyPlayer = identity.gameObject.GetComponent<Player>();
     }
 }
