@@ -60,8 +60,9 @@ public class GameManager : NetworkBehaviour
     public void SetCardStats(GameObject newCard, int playerNum, int cardID)
     {
         var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
-        newCard.GetComponent<FieldCard>().SetCard(cardID);
-        newCard.GetComponent<FieldCard>().CanAttack = true; // DEBUG **********
+        var newFieldCard = newCard.GetComponent<FieldCard>();
+        newFieldCard.SetCard(cardID);
+        //newCard.GetComponent<FieldCard>().CanAttack = true; // DEBUG **********
         if (Player.LocalPlayer.PlayerNum == playerNum)
         {
             newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);

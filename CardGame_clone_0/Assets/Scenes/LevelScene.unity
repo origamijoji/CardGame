@@ -1306,9 +1306,23 @@ MonoBehaviour:
     minion: {fileID: 11400000, guid: 9d0df35f577499441a45a6c3030bad99, type: 2}
   - cardID: 4
     minion: {fileID: 11400000, guid: 90dfe4680b5d826469dce63707a90eca, type: 2}
+  - cardID: 5
+    minion: {fileID: 11400000, guid: 3fb7b095e84bdb045b0f6f470a2acd56, type: 2}
+  - cardID: 6
+    minion: {fileID: 11400000, guid: 702d516853deda6489447b102018fb15, type: 2}
+  - cardID: 7
+    minion: {fileID: 11400000, guid: 596a4a33891231349acdd8450b4f9e83, type: 2}
+  - cardID: 8
+    minion: {fileID: 11400000, guid: dda7332c729f3164b97f2d620c749c4f, type: 2}
+  - cardID: 9
+    minion: {fileID: 11400000, guid: de15ea30451ecfb41b2cb2a48c6d7d03, type: 2}
   spells:
   - cardID: 0
     spell: {fileID: 11400000, guid: df30adf301beb4e4fbde5ee4151cf067, type: 2}
+  - cardID: 1
+    spell: {fileID: 11400000, guid: 4c3e27a7d34208a4ab6ee040e56130f3, type: 2}
+  - cardID: 2
+    spell: {fileID: 11400000, guid: 9d81cce9a0bf39745bdb26483dbb5523, type: 2}
 --- !u!4 &1253743301
 Transform:
   m_ObjectHideFlags: 0

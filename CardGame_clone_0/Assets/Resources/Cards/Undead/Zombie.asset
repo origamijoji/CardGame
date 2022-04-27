@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Zombie
   m_EditorClassIdentifier: 
   name: Zombie
-  description: 'On Death: Deal 2 damage to the enemy champion.'
-  art: {fileID: 0}
+  description: 
+  art: {fileID: 21300000, guid: 92a962ae2682faf4d97042308f17bde4, type: 3}
   manaCost: 2
   hasOnPlaceAbility: 1
   OnPlaceAbility: []

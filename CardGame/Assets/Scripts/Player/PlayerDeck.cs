@@ -45,6 +45,7 @@ public class PlayerDeck : NetworkBehaviour
             deckList[n] = deckList[k];
             deckList[k] = temp;
         }
+        
     }
 }
 

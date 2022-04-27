@@ -56,7 +56,7 @@ public class Player : Entity
             }
         }
         CmdResetValues();
-        _deck.deckList.Reverse();
+        _deck.Shuffle();
         StartCoroutine(DrawStartCards(3));
     }
 
@@ -118,6 +118,7 @@ public class Player : Entity
 
         foreach (Ability ability in abilityList)
         {
+            Debug.Log(ability);
             foreach (Targets target in ability.targets)
             {
                 if (target == Targets.EnemyChampion)
@@ -145,6 +146,7 @@ public class Player : Entity
                 foreach (Entity entity in targetsList)
                 {
                     entity.HealHealth(heal.heal);
+                    entity.TakeDamage(heal.damage);
                 }
             }
             else if (ability.scriptableAbility is BuffAbility buff)

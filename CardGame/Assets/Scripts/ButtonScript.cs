@@ -21,6 +21,7 @@ public class ButtonScript : MonoBehaviour
     }
     private void Update()
     {
+        EntitySubject.Notify();
         if(Player.LocalPlayer == null) { return; }
         if (Player.LocalPlayer.isServer)
         {

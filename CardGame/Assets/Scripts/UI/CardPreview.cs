@@ -7,6 +7,7 @@ public class CardPreview : EntityObserver
 {
     [SerializeField] private FieldCard _thisCard;
     [SerializeField] private Image _cardPreview;
+    [SerializeField] private GameObject _feintPreview;
 
 
     public void SetGreen()
@@ -26,8 +27,16 @@ public class CardPreview : EntityObserver
 
     public override void OnNotification()
     {
-        StartCoroutine(waitBeforeContinue(0.2f));
-        if (_thisCard.ThisTarget == Targets.EnemyMinions) { return; }
+        if (_thisCard.ThisTarget == Targets.EnemyMinions) { _feintPreview.SetActive(false); SetTransparent(); return; }
+
+        if (_thisCard.IsFeint)
+        {
+            _feintPreview.SetActive(true);
+        }
+        else
+        {
+            _feintPreview.SetActive(false);
+        }
 
         if (!Player.LocalPlayer.IsTurn)
         {

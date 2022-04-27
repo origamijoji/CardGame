@@ -70,6 +70,7 @@ public abstract class Entity : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void TakeDamage(int damage)
     {
+        if(damage == 0) { return; }
         if (IsFeint)
         {
             SetFeint(false);
