@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pure Priest
   m_EditorClassIdentifier: 
   name: Pure Priest
-  description: 'Inspire: Heals 2 health to all ally minions.'
+  description: 'On Play: Heals 2 health to all ally minions.'
   art: {fileID: 21300000, guid: cb5a7001ca5723b4f8570ee7affa4f27, type: 3}
   manaCost: 4
   hasOnPlaceAbility: 1

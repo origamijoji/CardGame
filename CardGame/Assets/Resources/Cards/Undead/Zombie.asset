@@ -12,18 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01856607017abf34a8f709e523ca2b8e, type: 3}
   m_Name: Zombie
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: Zombie
+  description: 'On Death: Deal 2 damage to the enemy champion.'
   art: {fileID: 0}
-  manaCost: 0
-  hasOnPlaceAbility: 0
+  manaCost: 2
+  hasOnPlaceAbility: 1
   OnPlaceAbility: []
-  health: 0
-  damage: 0
-  acceptableTargets: 
+  health: 1
+  damage: 2
+  acceptableTargets: 0100000003000000
   race: 
-  onDeathAbility: []
-  hasOnDeathEffect: 0
+  onDeathAbility:
+  - effect: 1
+    targets: 01000000
+    scriptableAbility: {fileID: 11400000, guid: 9c2cb1dabaf9ece41be990838cc6fbb4, type: 2}
+  hasOnDeathEffect: 1
   isKingpin: 0
   isFeint: 0
   isQuick: 0

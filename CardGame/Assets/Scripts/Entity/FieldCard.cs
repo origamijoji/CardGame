@@ -23,11 +23,13 @@ public class FieldCard : Entity
 
     public override void OnDeath()
     {
-        // if card has death ability, do it
-        // otherwise, return
+        Player.LocalPlayer.DoEffect(CardID, CardType.Minion);
 
-        Destroy(gameObject.GetComponent<OnHoverDefine>().CardPreview);
         Destroy(gameObject);
+        foreach (Transform child in ReferenceManager.Instance.CardPreviews.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
 }

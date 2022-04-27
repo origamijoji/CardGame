@@ -26,6 +26,7 @@ public class CardPreview : EntityObserver
 
     public override void OnNotification()
     {
+        StartCoroutine(waitBeforeContinue(0.2f));
         if (_thisCard.ThisTarget == Targets.EnemyMinions) { return; }
 
         if (!Player.LocalPlayer.IsTurn)
@@ -44,6 +45,10 @@ public class CardPreview : EntityObserver
         {
             SetTransparent();
         }
+    }
+    IEnumerator waitBeforeContinue(float length)
+    {
+        yield return new WaitForSeconds(length);
     }
 
 }

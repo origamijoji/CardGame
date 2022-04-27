@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Entity : NetworkBehaviour
 {
-    [SyncVar] public bool CanAttack;
+    [SyncVar(hook = nameof(UpdateUIOnSync))] public bool CanAttack;
     [Command(requiresAuthority = false)] public void SetCanAttack(bool value) => CanAttack = value;
     public Targets ThisTarget { get; set; }
 
@@ -27,10 +27,8 @@ public abstract class Entity : NetworkBehaviour
     [Command(requiresAuthority = false)] public void SetCanAttackAgain(bool value) => CanAttackAgain = value;
 
     // Whenever the health of an entity changes, update all EntityObserver UI
-    private void UpdateUIOnSync(int oldVar, int newVar)
-    {
-        EntitySubject.Notify();
-    }
+    private void UpdateUIOnSync(int oldVar, int newVar) => EntitySubject.Notify();
+    private void UpdateUIOnSync(bool oldVar, bool newVar) => EntitySubject.Notify();
 
     public void ResetEntity()
     {

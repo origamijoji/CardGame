@@ -9,6 +9,7 @@ public class Player : Entity
     public PlayerDeck GetDeck() => _deck;
     public static Player LocalPlayer { get; private set; }
     public static Player EnemyPlayer { get; private set; }
+    public void SetEnemy(Player enemy) => EnemyPlayer = enemy;
     [field: SerializeField] public int PlayerNum { get; private set; }
     public GameObject enemyPlayer;
     [field: SerializeField] public bool IsTurn { get; set; }
@@ -19,10 +20,12 @@ public class Player : Entity
     }
     [SyncVar] public int CardsHeld;
 
-    [SyncVar] public int Mana;
+    [SyncVar(hook = nameof(UpdateUI))] public int Mana;
     [Command] private void RemoveMana(int value) => Mana -= value;
     [Command] private void AddMana(int value) => Mana += value;
-    [SyncVar] public int CurrentMaxMana;
+    [Command] private void SetMana(int value) => Mana = value;
+    [SyncVar(hook = nameof(UpdateUI))] public int CurrentMaxMana;
+    [Command] private void AddCurrentMaxMana(int value) => CurrentMaxMana += value;
     private int _totalMaxMana = 10;
 
     public override void OnDeath()
@@ -37,15 +40,31 @@ public class Player : Entity
         gameObject.transform.SetParent(ReferenceManager.Instance.PlayerSpawn);
         gameObject.transform.localPosition = Vector3.zero;
         gameObject.transform.localScale = NetworkManager.singleton.playerPrefab.transform.localScale;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (isServer) { break; }
+            Debug.Log(player.name);
+            Player playerPlayer = player.GetComponent<Player>();
+            if (playerPlayer.PlayerNum == 0)
+            {
+                SetEnemy(playerPlayer);
+                playerPlayer.ThisTarget = Targets.EnemyChampion;
+                player.transform.SetParent(ReferenceManager.Instance.OpponentSpawn);
+                player.transform.localPosition = Vector3.zero;
+                player.transform.localScale = NetworkManager.singleton.playerPrefab.transform.localScale;
+            }
+        }
         CmdResetValues();
+        _deck.deckList.Reverse();
         StartCoroutine(DrawStartCards(3));
     }
 
     [Command]
     public void CmdResetValues()
     {
-        Mana = 1;
         CurrentMaxMana = 1;
+        Mana = 1;
         MaxHealth = 30;
         Health = 30;
     }
@@ -82,8 +101,14 @@ public class Player : Entity
         if (type == CardType.Minion)
         {
             var thisMinion = CardList.GetMinion(CardID);
-            if (!thisMinion.hasOnPlaceAbility) { return; }
-            abilityList = thisMinion.OnPlaceAbility;
+            if (thisMinion.hasOnPlaceAbility)
+            {
+                abilityList = thisMinion.OnPlaceAbility;
+            }
+            else if(thisMinion.hasOnDeathEffect)
+            {
+                abilityList = thisMinion.onDeathAbility;
+            }
         }
         else
         {
@@ -97,7 +122,7 @@ public class Player : Entity
             {
                 if (target == Targets.EnemyChampion)
                 {
-                    //targetsList.Add(opponent)
+                    targetsList.Add(EnemyPlayer);
                 }
                 if (target == Targets.EnemyMinions)
                 {
@@ -146,39 +171,34 @@ public class Player : Entity
         }
     }
 
-    [Command]
     public void StartRound()
     {
-        foreach(Transform child in ReferenceManager.Instance.PlayerField.transform)
+        AddCurrentMaxMana(1);
+        if(isClientOnly) { CurrentMaxMana++; }
+        SetMana(MaxMana);
+        _deck.DrawCard();
+        ResetBoard();
+    }
+
+    private void ResetBoard()
+    {
+        foreach (Transform child in ReferenceManager.Instance.PlayerField.transform)
         {
             child.GetComponent<FieldCard>().ResetEntity();
         }
-
-        if (CurrentMaxMana < _totalMaxMana)
-        {
-            CurrentMaxMana++;
-        }
-        Mana = CurrentMaxMana;
-        _deck.DrawCard();
-        Invoke("UpdateUI", 0.05f);
+        EntitySubject.Notify();
     }
 
-    private void UpdateUI() => EntitySubject.Notify();
-    public void EndRound()
+    public void UpdateUI(int oldVar, int newVar)
     {
         EntitySubject.Notify();
     }
 
-    
+
 
     [Command]
     public void DecreaseHealth(int health)
     {
         Health -= health;
-    }
-
-    public void GetEnemyInfo(NetworkIdentity identity)
-    {
-        EnemyPlayer = identity.gameObject.GetComponent<Player>();
     }
 }

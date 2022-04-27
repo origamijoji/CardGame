@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class PlayerDeck : NetworkBehaviour
 {
@@ -31,6 +32,18 @@ public class PlayerDeck : NetworkBehaviour
             //_hand.Add(newCardInfo);
             deckList.RemoveAt(0);
             newCard.GetComponent<HeldCard>().DisplayInfo(newCardInfo.ID, newCardInfo.type);
+        }
+    }
+
+
+    public void Shuffle() {
+        System.Random rand = new System.Random();
+        for (int n = deckList.Count - 1; n > 0; --n)
+        {
+            int k = rand.Next(n + 1);
+            Card temp = deckList[n];
+            deckList[n] = deckList[k];
+            deckList[k] = temp;
         }
     }
 }

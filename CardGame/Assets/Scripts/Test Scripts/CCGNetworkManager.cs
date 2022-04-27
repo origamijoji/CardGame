@@ -14,16 +14,14 @@ public class CCGNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
+        //base.OnServerAddPlayer(conn);
         var spawnPoint = ReferenceManager.Instance.OpponentSpawn;
         var newPlayer = Instantiate(singleton.playerPrefab, spawnPoint);
-        newPlayer.transform.localPosition = Vector3.zero;
-        newPlayer.transform.localScale = singleton.playerPrefab.transform.localScale;
         NetworkServer.AddPlayerForConnection(conn, newPlayer);
 
         if (HasTwoPlayers == false) { HasTwoPlayers = true; return; }
-        var newPlayerComponent = newPlayer.GetComponent<Player>();
-        Player.LocalPlayer.GetEnemyInfo(newPlayer.GetComponent<Player>().netIdentity);
-        GameManager.Instance.ExchangePlayerInfo(Player.LocalPlayer.netIdentity);
-        
+        var newPlayerPlayer = newPlayer.GetComponent<Player>();
+        Player.LocalPlayer.SetEnemy(newPlayerPlayer);
+        newPlayerPlayer.ThisTarget = Targets.EnemyChampion;
     }
 }
