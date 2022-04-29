@@ -18,6 +18,33 @@ public class GameManager : NetworkBehaviour
         }
     }
     [SyncVar] public int RoundNumber;
+    [SyncVar(hook = nameof(OnRoundChange))] public bool IsFirstHalf;
+
+    public void OnRoundChange(bool oldFirstHalf, bool newFirstHalf)
+    {
+        if(isServer && newFirstHalf == true)
+        {
+            Player.LocalPlayer.StartRound();
+        }
+        else if(isClientOnly && newFirstHalf == false)
+        {
+            Player.LocalPlayer.StartRound();
+        }
+    }
+
+    [Command(requiresAuthority = false)] 
+    public void CmdEndTurn()
+    {
+        if(IsFirstHalf)
+        {
+            IsFirstHalf = false;
+        }
+        else
+        {
+            RoundNumber++;
+            IsFirstHalf = true;
+        }
+    }
 
     [Command(requiresAuthority = false)]
     public void SpawnCard(int cardID, int playerNum)
@@ -33,8 +60,9 @@ public class GameManager : NetworkBehaviour
     public void SetCardStats(GameObject newCard, int playerNum, int cardID)
     {
         var newCardPrefab = NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "Field Card");
-        newCard.GetComponent<FieldCard>().SetCard(cardID);
-        newCard.GetComponent<FieldCard>().CanAttack = true; // DEBUG **********
+        var newFieldCard = newCard.GetComponent<FieldCard>();
+        newFieldCard.SetCard(cardID);
+        //newCard.GetComponent<FieldCard>().CanAttack = true; // DEBUG **********
         if (Player.LocalPlayer.PlayerNum == playerNum)
         {
             newCard.transform.SetParent(ReferenceManager.Instance.PlayerField.transform);
@@ -57,7 +85,7 @@ public class GameManager : NetworkBehaviour
     {
         if(attacker.IsLethal)
         {
-            target.TakeDamage(100);
+            target.TakeDamage(999);
         }
         else
         {
@@ -65,11 +93,16 @@ public class GameManager : NetworkBehaviour
         }
         if(target.IsLethal)
         {
-            attacker.TakeDamage(100);
+            attacker.TakeDamage(999);
         }
         else
         {
             attacker.TakeDamage(target.Damage);
         }
+    }
+    public override void OnStartServer()
+    {
+        IsFirstHalf = true;
+        RoundNumber = 1;
     }
 }

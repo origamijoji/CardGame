@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f805e580006d0d48943fdc8bd51dfde, type: 3}
-  m_Name: Hashem's Wrath
+  m_Name: Good Work Ethic
   m_EditorClassIdentifier: 
-  name: Holy Fire
-  description: Deal 3 damage to a random enemy minion.
-  art: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  manaCost: 2
+  name: Good Work Ethic
+  description: Heal 5 health to your champion.
+  art: {fileID: 21300000, guid: 891f5048c19a79f4d890eadf5d29adb8, type: 3}
+  manaCost: 4
   hasOnPlaceAbility: 1
-  OnPlaceAbility: []
+  OnPlaceAbility:
+  - effect: 0
+    targets: 00000000
+    scriptableAbility: {fileID: 11400000, guid: bb537fa8d82d2764b8c32eebd485f8ac, type: 2}

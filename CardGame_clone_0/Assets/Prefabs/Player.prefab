@@ -186,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  CanAttack: 0
   MaxHealth: 0
   Health: 0
   Damage: 0
@@ -199,6 +200,7 @@ MonoBehaviour:
   _deck: {fileID: 3874928634891579215}
   <PlayerNum>k__BackingField: 0
   enemyPlayer: {fileID: 0}
+  <IsTurn>k__BackingField: 0
   CardsHeld: 0
   Mana: 0
   CurrentMaxMana: 0
@@ -234,15 +236,29 @@ MonoBehaviour:
     type: 0
   - ID: 0
     type: 1
-  - ID: 1
+  - ID: 5
     type: 0
   - ID: 2
     type: 0
   - ID: 0
-    type: 0
+    type: 1
   - ID: 1
-    type: 0
+    type: 1
   - ID: 1
+    type: 1
+  - ID: 4
+    type: 0
+  - ID: 6
+    type: 0
+  - ID: 7
+    type: 0
+  - ID: 7
+    type: 0
+  - ID: 9
+    type: 0
+  - ID: 9
+    type: 0
+  - ID: 8
     type: 0
 --- !u!114 &2305636083855954488
 MonoBehaviour:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Serious Soldier
   m_EditorClassIdentifier: 
   name: Serious Soldier
-  description: 'Inspire: Gives all other ally minions +1 Damage.'
+  description: 'On Play: Gives all other ally minions +1 Damage.'
   art: {fileID: 21300000, guid: a46b2956ed2a640478f24d4611befe36, type: 3}
   manaCost: 3
   hasOnPlaceAbility: 1

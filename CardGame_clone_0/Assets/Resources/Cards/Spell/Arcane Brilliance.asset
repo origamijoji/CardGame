@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Arcane Brilliance
   description: Draw 2 cards.
-  art: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  art: {fileID: 21300000, guid: 636c5a64b2061cc4eb2caf0cf542756c, type: 3}
   manaCost: 3
   hasOnPlaceAbility: 1
   OnPlaceAbility:

@@ -16,6 +16,8 @@ public class HeldCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _cost;
+    [SerializeField] private Image _damageImage;
+    [SerializeField] private Image _healthImage;
 
     public void DisplayInfo(int cardID, CardType type) {
         if (type == CardType.Minion)
@@ -26,6 +28,8 @@ public class HeldCard : MonoBehaviour
             CardType = type;
             _health.text = minionInfo.health.ToString();
             _damage.text = minionInfo.damage.ToString();
+            _damageImage.gameObject.SetActive(true);
+            _healthImage.gameObject.SetActive(true);
         }
         else
         {
