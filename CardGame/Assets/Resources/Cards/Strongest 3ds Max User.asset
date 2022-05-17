@@ -26,8 +26,8 @@ MonoBehaviour:
   hasOnDeathEffect: 0
   isKingpin: 0
   isFeint: 0
-  isQuick: 1
+  isQuick: 0
   isLethal: 0
-  isDualWield: 1
+  isDualWield: 0
   isMonarch: 0
   fieldCard: {fileID: 0}

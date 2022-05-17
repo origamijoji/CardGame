@@ -90,6 +90,7 @@ public class Player : Entity
     public void PlaySpell(int cardID, int cost)
     {
         DoEffect(cardID, CardType.Spell);
+        RemoveMana(cost);
     }
 
 
